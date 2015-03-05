@@ -1,0 +1,46 @@
+---
+# repos basedir
+- name: site repo basedir
+  sudo: true
+  file:
+    path={{site_repo_basedir}}
+    state=directory
+    owner=root
+    group=root
+    mode=0751
+  tags: tsadm-site
+
+# repo user
+- name: site repo user
+  sudo: true
+  user:
+    uid={{item.uid}}
+    name={{item.name}}
+    groups=authcmds
+    comment='tsadm repo {{item.name}}'
+    home={{site_repo_basedir}}/{{item.name}}
+    shell=/usr/bin/git-shell
+    state=present
+  with_items: sites_all
+  tags: tsadm-site
+
+# repo home perms
+- name: site repo home perms
+  sudo: true
+  file:
+    path={{site_repo_basedir}}/{{item.name}}
+    state=directory
+    owner={{item.name}}
+    group={{item.name}}
+    mode=0751
+  with_items: sites_all
+  tags: tsadm-site
+
+# git repo
+- name: site git repo
+  sudo: true
+  script: git-repo-create.sh {{item.name}} {{site_repo_basedir}}/{{item.name}}/{{item.name}}.git creates={{site_repo_basedir}}/{{item.name}}/{{item.name}}.git/description
+  with_items: sites_all
+  tags:
+    - tsadm-site
+    - site-repo

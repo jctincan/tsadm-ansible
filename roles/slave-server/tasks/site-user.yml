@@ -1,0 +1,50 @@
+---
+# sites homedir base
+- name: site homedir base
+  sudo: true
+  file:
+    path={{tsadm_homedir}}/sites
+    state=directory
+    owner=tsadm
+    group={{www_group}}
+    mode=0751
+  tags: tsadm-site
+
+# site user
+- name: site user
+  sudo: true
+  user:
+    uid={{item.uid}}
+    name={{item.name}}
+    comment='tsadm {{item.name}}'
+    group={{www_group}}
+    home={{tsadm_homedir}}/sites/{{item.name}}
+    shell=/bin/bash
+    state=present
+  with_items: slave_server_sites
+  tags: tsadm-site
+
+# site user home dir perms
+- name: site user homedir perms
+  sudo: true
+  file:
+    path={{tsadm_homedir}}/sites/{{item.name}}
+    state=directory
+    owner={{item.name}}
+    group={{www_group}}
+    mode=0751
+  with_items: slave_server_sites
+  tags: tsadm-site
+
+# site user homedir data
+- name: site user homedir data
+  sudo: true
+  copy:
+    src=site-user.home/
+    dest={{tsadm_homedir}}/sites/{{item.name}}
+    mode=0640
+    owner={{item.name}}
+    backup=yes
+    force=yes
+  with_items: slave_server_sites
+  tags: tsadm-site

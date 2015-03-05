@@ -1,0 +1,37 @@
+---
+# tsadm user group
+- name: tsadm user group
+  group: name={{www_group}} state=present
+
+# tsadm user
+- name: tsadm user
+  sudo: true
+  user:
+    uid=61000
+    name=tsadm
+    comment=tsadm
+    group={{www_group}}
+    home={{tsadm_homedir}}
+    shell=/bin/bash
+    state=present
+
+# tsadm user homedir data
+- name: tsadm homedir data
+  sudo: true
+  copy:
+    src=tsadm.home/
+    dest={{tsadm_homedir}}
+    mode=0640
+    owner=tsadm
+    backup=yes
+    force=yes
+
+# tsadm user homedir perms
+- name: tsadm homedir perms
+  sudo: true
+  file:
+    path={{tsadm_homedir}}
+    owner=tsadm
+    group={{www_group}}
+    mode=0750
+    state=directory

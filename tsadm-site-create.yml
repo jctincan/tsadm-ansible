@@ -1,0 +1,10 @@
+---
+# git repo
+- hosts: master-server
+  tasks:
+    - include: roles/master-server/tasks/site-repo.yml
+
+# site installation
+- hosts: slave-servers
+  tasks:
+    - include: roles/slave-server/tasks/site-user.yml

@@ -1,0 +1,4 @@
+slave_server_sites:
+  - {uid: 61001, name: 'regr'}
+  - {uid: 61002, name: 's0'}
+  - {uid: 61003, name: 's1'}

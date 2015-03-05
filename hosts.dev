@@ -1,0 +1,10 @@
+tsadm.local
+node0.tsadm
+
+
+[master-server]
+tsadm.local
+
+
+[slave-servers]
+node0.tsadm

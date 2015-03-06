@@ -8,7 +8,9 @@
     owner=root
     group=root
     mode=0751
-  tags: tsadm-site
+  tags:
+    - tsadm-site
+    - site-repo
 
 # repo user
 - name: site repo user
@@ -21,7 +23,8 @@
     home={{site_repo_basedir}}/{{item.name}}
     shell=/usr/bin/git-shell
     state=present
-  with_items: sites_all
+  with_items:
+    sites_all
   tags: tsadm-site
 
 # repo home perms
@@ -34,7 +37,9 @@
     group={{item.name}}
     mode=0751
   with_items: sites_all
-  tags: tsadm-site
+  tags:
+    - tsadm-site
+    - site-repo
 
 # git repo
 - name: site git repo
@@ -44,3 +49,30 @@
   tags:
     - tsadm-site
     - site-repo
+
+# repo ssh dir
+- name: site repo ssh dir
+  sudo: true
+  file:
+    path={{site_repo_basedir}}/{{item.name}}/.ssh
+    state=directory
+    owner={{item.name}}
+    group={{item.name}}
+    mode=0750
+  with_items: sites_all
+  tags:
+    - tsadm-site
+    - site-repo
+    - repo-ssh-auth
+
+# ssh auth
+- name: site repo ssh auth
+  sudo: true
+  lineinfile: "dest={{site_repo_basedir}}/{{item.0.name}}/.ssh/authorized_keys state=present line='{{item.1}}' mode=0640 owner={{item.0.name}} group={{item.0.name}} create=yes"
+  with_subelements:
+    - sites_all
+    - auth_keys
+  tags:
+    - tsadm-site
+    - site-repo
+    - repo-ssh-auth

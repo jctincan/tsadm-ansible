@@ -50,6 +50,18 @@
     - tsadm-site
     - site-repo
 
+# git post-receive hook
+- name: site repo post-receive hook
+  sudo: true
+  file: src={{site_repo_post_receive_hook}}
+        path={{site_repo_basedir}}/{{item.name}}/{{item.name}}.git/hooks/post-receive
+        state=link
+        force=yes
+  with_items: sites_all
+  tags:
+    - tsadm-site
+    - site-repo
+
 # repo ssh dir
 - name: site repo ssh dir
   sudo: true

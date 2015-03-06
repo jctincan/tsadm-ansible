@@ -17,8 +17,7 @@ umask 0027
 rsync -ax /srv/git/tsadm/tsadm-git/init-tmpl.git/ ${repo_path}/
 echo "${repo_name} site" >${repo_path}/description
 
-ln -s /opt/tsadm/libexec/git/post-receive ${repo_path}/hooks/
 chown -R ${repo_name}:${www_group} ${repo_path}
-
 umask ${old_umask}
+
 exit 0

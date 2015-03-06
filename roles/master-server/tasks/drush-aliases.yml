@@ -18,3 +18,26 @@
   tags:
     - tsadm-site
     - site-drush
+
+# site develoloer drush homedir
+- name: site developer drush homedir
+  sudo: true
+  file: path=/home/{{item.name}}/.drush
+        state=directory
+  with_items: developers_all
+  tags:
+    - tsadm-site
+    - site-drush
+
+# site drush aliases for developer
+- name: site drush aliases for developer
+  sudo: true
+  file: src={{tsadm_homedir}}/drushrc/{{item.0.name}}.aliases.drushrc.php
+        path=/home/{{item.1}}/.drush/{{item.0.name}}.aliases.drushrc.php
+        state=link
+  with_subelements:
+    - sites_all_auth
+    - auth_users
+  tags:
+    - tsadm-site
+    - site-drush

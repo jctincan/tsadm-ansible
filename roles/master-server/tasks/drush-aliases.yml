@@ -1,0 +1,20 @@
+---
+# tsadm drushrc dir
+- name: tsadm drushrc dir
+  sudo: true
+  file: path={{tsadm_homedir}}/drushrc
+        state=directory
+  tags:
+    - tsadm-site
+    - site-drush
+
+# site drush aliases
+- name: site drush aliases
+  sudo: true
+  template: src=site.aliases.drushrc.php
+            dest={{tsadm_homedir}}/drushrc/{{item.site_name}}.aliases.drushrc.php
+            validate='php -l %s'
+  with_items: sites_envs_all
+  tags:
+    - tsadm-site
+    - site-drush

@@ -25,5 +25,23 @@ sites_all_auth:
       - 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDQ/mBHfR3T+7LwyYMv2CxGt0O8rV3P0K/pFB+YEmFKReK8G4p8HwK1C4UP1s5/6HN2byUZZJczUOT8VDmy4kmSNBiYZXyHiE7Cn9tCSQ926r8ykhjzU80xifEIcaWInCYQhwCRGtiS+TkucVhTY5uLdOa1xnGc9d5u8uk9U2+W9tQndBna/XHaD+5VhqLK4f+7nu2BkwemLuicR8uB2gPkbcOIvhAahrN6dplgwd4IE1ta4A8UeYTR+X/xzUAuddXFYoWWDmC+Y3c7AMecdioJ7EYNbFGt4UF4W0TusaIa74BmDqFK0TsDA8GBEdfUom04Al2IsZgPUcfd7h6SFj0H JRMS-KEY'
       - 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDQ/mBHfR3T+7LwyYMv2CxGt0O8rV3P0K/pFB+YEmFKReK8G4p8HwK1C4UP1s5/6HN2byUZZJczUOT8VDmy4kmSNBiYZXyHiE7Cn9tCSQ926r8ykhjzU80xifEIcaWInCYQhwCRGtiS+TkucVhTY5uLdOa1xnGc9d5u8uk9U2+W9tQndBna/XHaD+5VhqLK4f+7nu2BkwemLuicR8uB2gPkbcOIvhAahrN6dplgwd4IE1ta4A8UeYTR+X/xzUAuddXFYoWWDmC+Y3c7AMecdioJ7EYNbFGt4UF4W0TusaIa74BmDqFK0TsDA8GBEdfUom04Al2IsZgPUcfd7h6SFj0H JRMS-KEY2'
 
+sites_envs_all:
+  - site_name: 'regr'
+    envs:
+      - name: 'dev'
+        host_fqdn: 'node0.tsadm'
+      - name: 'test'
+        host_fqdn: 'node0.tsadm'
+  - site_name: 's0'
+    envs:
+      - name: 'dev'
+        host_fqdn: 'node0.tsadm'
+  - site_name: 's1'
+    envs:
+      - name: 'dev'
+        host_fqdn: 'node0.tsadm'
+      - name: 'prod'
+        host_fqdn: 'node0.tsadm'
+
 # should be re-set by host
 slave_server_sites: []

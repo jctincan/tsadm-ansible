@@ -1,2 +1,3 @@
 ---
 - include: site-repo.yml
+- include: drush-aliases.yml

@@ -2,6 +2,7 @@
 www_group: nobody
 tsadm_homedir: /home/tsadm
 site_repo_basedir: /srv/git/tsadm/sites
+repo_user_groups: authcmds
 
 sites_all:
   - uid: 61001

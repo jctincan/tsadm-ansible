@@ -1,3 +1,4 @@
+---
 slave_server_sites:
   - {uid: 61001, name: 'regr'}
   - {uid: 61002, name: 's0'}

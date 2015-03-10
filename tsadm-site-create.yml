@@ -1,11 +1,11 @@
 ---
-# git repo
 - hosts: master-server
   gather_facts: false
   tasks:
     - include: roles/master-server/tasks/site-repo.yml
+    - include: roles/master-server/tasks/drush-aliases.yml
+    - include: roles/master-server/tasks/developer-ssh-config.yml
 
-# site installation
 - hosts: slave-servers
   gather_facts: false
   tasks:

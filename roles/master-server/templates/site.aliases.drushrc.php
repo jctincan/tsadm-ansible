@@ -1,4 +1,5 @@
 <?php
+# {{ansible_managed}}
 {% for tsadm_env in item.envs %}
 $aliases['{{tsadm_env.name}}'] = array(
     'root' => '{{tsadm_homedir}}/sites/{{item.site_name}}/{{tsadm_env.name}}/docroot',

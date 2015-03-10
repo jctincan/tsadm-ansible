@@ -32,12 +32,12 @@
 # site drush aliases for developer
 - name: site drush aliases for developer
   sudo: true
-  file: src={{tsadm_homedir}}/drushrc/{{item.0.name}}.aliases.drushrc.php
-        path=/home/{{item.1}}/.drush/{{item.0.name}}.aliases.drushrc.php
+  file: src={{tsadm_homedir}}/drushrc/{{item.1.name}}.aliases.drushrc.php
+        path=/home/{{item.0.name}}/.drush/{{item.1.name}}.aliases.drushrc.php
         state=link
   with_subelements:
-    - sites_all_auth
-    - auth_users
+    - developers_all
+    - sites_auth
   tags:
     - tsadm-site
     - site-drush

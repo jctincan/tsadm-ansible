@@ -1,0 +1,34 @@
+---
+# site ssh dir
+- name: site ssh dir
+  sudo: true
+  file:
+    path={{tsadm_homedir}}/sites/{{item.name}}/.ssh
+    state=directory
+    owner={{item.name}}
+    group={{www_group}}
+    mode=0750
+  with_items: sites_all
+  tags:
+    - tsadm-site
+    - site-repo
+    - site-auth
+
+# site ssh auth
+- name: site ssh auth
+  sudo: true
+  lineinfile:
+    dest={{tsadm_homedir}}/sites/{{item.0.name}}/.ssh/authorized_keys
+    state={{item.1.state}}
+    line='{{item.1.key}}'
+    mode=0640
+    owner={{item.0.name}}
+    group={{www_group}}
+    create=yes
+  with_subelements:
+    - sites_all_auth
+    - auth_keys
+  tags:
+    - tsadm-site
+    - site-repo
+    - site-auth

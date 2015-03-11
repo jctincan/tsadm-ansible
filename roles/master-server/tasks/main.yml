@@ -1,5 +1,6 @@
 ---
 - include: developer-os-user.yml
 - include: site-repo.yml
+- include: site-repo-auth.yml
 - include: drush-aliases.yml
 - include: developer-ssh-config.yml

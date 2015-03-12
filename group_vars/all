@@ -4,6 +4,7 @@ tsadm_homedir: /home/tsadm
 site_repo_basedir: /srv/git/tsadm/sites
 site_repo_post_receive_hook: /opt/tsadm/libexec/git/post-receive
 repo_user_groups: authcmds
+playbook_gather_facts: false
 
 
 sites_all:
@@ -40,18 +41,23 @@ sites_envs_all:
     envs:
       - name: 'dev'
         host_fqdn: 'node0.tsadm'
+        git_uri: none
       - name: 'test'
         host_fqdn: 'node0.tsadm'
+        git_uri: none
   - site_name: 's0'
     envs:
       - name: 'dev'
         host_fqdn: 'node0.tsadm'
+        git_uri: none
   - site_name: 's1'
     envs:
       - name: 'dev'
         host_fqdn: 'node0.tsadm'
+        git_uri: none
       - name: 'prod'
         host_fqdn: 'node0.tsadm'
+        git_uri: none
 
 
 developers_all:

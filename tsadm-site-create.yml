@@ -1,7 +1,7 @@
 ---
 # master server tasks
 - hosts: master-server
-  gather_facts: false
+  gather_facts: playbook_gather_facts
   tasks:
     - include: roles/master-server/tasks/site-repo.yml
     - include: roles/master-server/tasks/site-repo-auth.yml
@@ -10,7 +10,7 @@
 
 # slave servers tasks
 - hosts: slave-servers
-  gather_facts: false
+  gather_facts: playbook_gather_facts
   tasks:
     - include: roles/slave-server/tasks/site-user.yml
     - include: roles/slave-server/tasks/site-auth.yml

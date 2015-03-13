@@ -35,3 +35,40 @@
     group={{www_group}}
     mode=0750
     state=directory
+
+# tsadm user ssh dir
+- name: tsadm user ssh dir
+  sudo: true
+  file:
+    path={{tsadm_homedir}}/.ssh
+    owner=tsadm
+    group={{www_group}}
+    mode=0750
+    state=directory
+
+# tsadm user ssh keygen
+- name: tsadm user ssh keygen
+  sudo: true
+  command:
+    /usr/bin/ssh-keygen -q -t rsa -f {{tsadm_homedir}}/.ssh/id_rsa -N ''
+    creates={{tsadm_homedir}}/.ssh/id_rsa
+
+# tsadm user ssh priv key perms
+- name: tsadm user ssh priv key perms
+  sudo: true
+  file:
+    path={{tsadm_homedir}}/.ssh/id_rsa
+    owner=tsadm
+    group={{www_group}}
+    mode=0640
+    state=file
+
+# tsadm user ssh pub key perms
+- name: tsadm user ssh pub key perms
+  sudo: true
+  file:
+    path={{tsadm_homedir}}/.ssh/id_rsa.pub
+    owner=tsadm
+    group={{www_group}}
+    mode=0640
+    state=file

@@ -1,0 +1,16 @@
+---
+# git checkout
+- name: site env git checkout
+  sudo: true
+  git:
+    dest={{tsadm_homedir}}/sites/{{item.0.site_name}}/{{item.1.name}}
+    repo={{item.1.git_uri}}
+    key_file={{tsadm_homedir}}/.ssh/id_rsa
+    accept_hostkey=yes
+    force=no
+  with_subelements:
+    - sites_envs_all
+    - envs
+  tags:
+    - tsadm-site
+    - site-envs

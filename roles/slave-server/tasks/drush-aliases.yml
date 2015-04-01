@@ -1,0 +1,63 @@
+---
+# site drush dir
+- name: site drush dir
+  sudo: true
+  file:
+    path={{tsadm_homedir}}/sites/{{item.site_name}}/.drush
+    state=directory
+    mode=0750
+    owner={{item.site_name}}
+    group={{www_group}}
+  with_items:
+    sites_envs_all
+  tags:
+    - tsadm-site
+    - site-drush
+
+
+# site drush aliases
+- name: site drush aliases
+  sudo: true
+  template:
+    src=site.aliases.drushrc.php
+    dest={{tsadm_homedir}}/sites/{{item.site_name}}/.drush/{{item.site_name}}.aliases.drushrc.php
+    mode=0640
+    owner={{item.site_name}}
+    group={{www_group}}
+    validate='php -l %s'
+  with_items:
+    sites_envs_all
+  tags:
+    - tsadm-site
+    - site-drush
+
+
+# tsadm drush dir
+- name: tsadm drush dir
+  sudo: true
+  file:
+    path={{tsadm_homedir}}/.drush
+    state=directory
+    mode=0750
+    owner=tsadm
+    group={{www_group}}
+  tags:
+    - tsadm-site
+    - site-drush
+
+
+# tsadm site drush aliases
+- name: tsadm site drush aliases
+  sudo: true
+  template:
+    src=site.aliases.drushrc.php
+    dest={{tsadm_homedir}}/.drush/{{item.site_name}}.aliases.drushrc.php
+    mode=0640
+    owner=tsadm
+    group={{www_group}}
+    validate='php -l %s'
+  with_items:
+    sites_envs_all
+  tags:
+    - tsadm-site
+    - site-drush

@@ -2,3 +2,4 @@
 - include: site-user.yml
 - include: site-auth.yml
 - include: site-envs.yml
+- include: drush-aliases.yml

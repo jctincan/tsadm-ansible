@@ -1,0 +1,11 @@
+---
+- name: debian packages
+  sudo: true
+  apt:
+    name={{item.name}}
+    state={{item.state}}
+    purge={{item.purge}}
+  with_items:
+    debian_packages_common
+  tags:
+    - debian-packages

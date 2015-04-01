@@ -7,6 +7,12 @@ repo_user_groups: authcmds
 playbook_gather_facts: false
 
 
+debian_packages_common:
+  - name: php5-cli
+    state: present
+    purge: no
+
+
 sites_all:
   - {uid: 61001, name: 'regr'}
   - {uid: 61002, name: 's0'}

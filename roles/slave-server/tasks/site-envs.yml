@@ -14,3 +14,18 @@
   tags:
     - tsadm-site
     - site-envs
+
+# env files/dirs permissions
+- name: site env perms
+  sudo: true
+  site_env_perms:
+    env_basedir={{tsadm_homedir}}/sites/{{item.0.site_name}}/{{item.1.name}}/docroot
+    public_group={{www_group}}
+    public_path_regex=r'.*/sites/.*/files($|/.*)'
+  with_subelements:
+    - sites_envs_all
+    - envs
+  tags:
+    - tsadm-site
+    - site-envs
+    - site-env-perms

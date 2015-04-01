@@ -1,0 +1,231 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+import re
+import os.path
+from ansible.module_utils.basic import *
+
+
+DOCUMENTATION = '''
+---
+module: site_env_perms
+short_description: Manage site files/dirs permissions
+description:
+  - Manage site files/dirs permissions
+requirements: []
+author: Jeremías Casteglione <jeremias@tincan.co.uk>
+options:
+  env_basedir:
+    description:
+      - path to env base dir (git checkout)
+    required: true
+    default: ''
+  ower:
+    description:
+      - file/dir owner
+    required: false
+    default: 'root'
+  group:
+    description:
+      - file/dir group
+    required: false
+    default: 'root'
+  file_mode:
+    description:
+      - file mode
+    required: false
+    default: 0640
+  dir_mode:
+    description:
+      - dir mode
+    required: false
+    default: 0750
+  public_ower:
+    description:
+      - file/dir owner for writeable access
+    required: false
+    default: 'root'
+  public_group:
+    description:
+      - file/dir group for writeable access
+    required: false
+    default: 'root'
+  public_file_mode:
+    description:
+      - file mode for writeable access
+    required: false
+    default: 0640
+  public_dir_mode:
+    description:
+      - dir mode for writeable access
+    required: false
+    default: 0750
+  public_path_regex:
+    description:
+      - regex to determine if a path will be writeable by web server
+    required: false
+    default: None (no path will be considered writeable)
+'''
+
+EXAMPLES = '''
+- site_env_perms: env_basedir=/home/tsadm/sites/s0/dev
+- site_env_perms: env_basedir=/home/tsadm/sites/s1/prod file_mode=0440
+'''
+
+
+class G:
+    amod = None
+    changed = False
+    err_msg = '__NO_ERR_MSG__'
+    dirs_found = None
+    dirs_changed = 0
+    public_dirs_changed = 0
+    files_found = None
+    files_changed = 0
+    public_files_changed = 0
+    fs_attribs = None
+    public_path_re = None
+
+
+def get_env_dirs(envdir):
+    rc, stdout, stderr = G.amod.run_command(['/usr/bin/find', envdir, '-type', 'd'], check_rc=True)
+    dirs_list = sorted(stdout.splitlines())
+    G.dirs_found = len(dirs_list)
+    return dirs_list
+
+
+def get_env_files(envdir):
+    rc, stdout, stderr = G.amod.run_command(['/usr/bin/find', envdir, '-type', 'f'], check_rc=True)
+    files_list = sorted(stdout.splitlines())
+    G.files_found = len(files_list)
+    return files_list
+
+
+def is_public_path(path):
+    regex = G.amod.params.get('public_path_regex', None)
+    if regex is None:
+        return False
+    if G.public_path_re is None:
+        G.public_path_re = re.compile(regex)
+    if G.public_path_re.search(path):
+        return True
+    else:
+        return False
+
+
+def public_dir_perms(dpath):
+    G.fs_attribs['path'] = dpath
+    G.fs_attribs['mode'] = G.amod.params['public_dir_mode']
+    G.fs_attribs['owner'] = G.amod.params['public_owner']
+    G.fs_attribs['group'] = G.amod.params['public_group']
+    if G.amod.set_fs_attributes_if_different(G.fs_attribs, False):
+        if not G.changed:
+            G.changed = True
+        G.public_dirs_changed += 1
+
+
+def dir_perms(dpath):
+    G.fs_attribs['path'] = dpath
+    G.fs_attribs['mode'] = G.amod.params['dir_mode']
+    if G.amod.set_fs_attributes_if_different(G.fs_attribs, False):
+        if not G.changed:
+            G.changed = True
+        G.dirs_changed += 1
+
+
+def check_dirs_perms(dirs_list):
+    for dpath in dirs_list:
+        if is_public_path(dpath):
+            public_dir_perms(dpath)
+        else:
+            dir_perms(dpath)
+    return True
+
+
+def public_file_perms(fpath):
+    G.fs_attribs['path'] = fpath
+    G.fs_attribs['mode'] = G.amod.params['public_file_mode']
+    G.fs_attribs['owner'] = G.amod.params['public_owner']
+    G.fs_attribs['group'] = G.amod.params['public_group']
+    if G.amod.set_fs_attributes_if_different(G.fs_attribs, False):
+        if not G.changed:
+            G.changed = True
+        G.public_files_changed += 1
+
+
+def file_perms(fpath):
+    G.fs_attribs['path'] = fpath
+    G.fs_attribs['mode'] = G.amod.params['file_mode']
+    if G.amod.set_fs_attributes_if_different(G.fs_attribs, False):
+        if not G.changed:
+            G.changed = True
+        G.files_changed += 1
+
+
+def check_files_perms(files_list):
+    for fpath in files_list:
+        if is_public_path(fpath):
+            public_file_perms(fpath)
+        else:
+            file_perms(fpath)
+    return True
+
+
+def check_perms(envdir):
+    env_dirs = get_env_dirs(envdir)
+    env_files = get_env_files(envdir)
+    if not check_dirs_perms(env_dirs):
+        G.err_msg = 'dirs perms failed'
+        return False
+    if not check_files_perms(env_files):
+        G.err_msg = 'files perms failed'
+        return False
+    return True
+
+
+def get_fs_attribs(params):
+    return dict(
+        path=None,
+        mode=None,
+        owner=params.get('owner'),
+        group=params.get('owner'),
+        secontext=None
+    )
+
+
+def main():
+    G.amod = AnsibleModule(
+        argument_spec=dict(
+            env_basedir=dict(required=True),
+            owner=dict(required=False, default='root'),
+            group=dict(required=False, default='root'),
+            file_mode=dict(required=False, default=0640),
+            dir_mode=dict(required=False, default=0750),
+            public_owner=dict(required=False, default='root'),
+            public_group=dict(required=False, default='root'),
+            public_file_mode=dict(required=False, default=0640),
+            public_dir_mode=dict(required=False, default=0750),
+            public_path_regex=dict(required=False, default=None),
+        ),
+        supports_check_mode=True
+    )
+    G.fs_attribs = get_fs_attribs(G.amod.params)
+    env_basedir = os.path.expanduser(G.amod.params['env_basedir'])
+    if not os.path.isdir(env_basedir):
+        G.amod.fail_json(msg='%s: dir not found' % env_basedir)
+    elif not check_perms(env_basedir):
+        G.amod.fail_json(msg=G.err_msg)
+    else:
+        G.amod.exit_json(
+            changed=G.changed,
+            dirs_found=G.dirs_found,
+            dirs_changed=G.dirs_changed,
+            public_dirs_changed=G.public_dirs_changed,
+            files_found=G.files_found,
+            files_changed=G.files_changed,
+            public_files_changed=G.public_files_changed,
+        )
+
+
+if __name__ == '__main__':
+    main()

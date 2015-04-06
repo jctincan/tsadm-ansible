@@ -5,8 +5,6 @@
   file:
     path={{site_repo_basedir}}
     state=directory
-    owner=root
-    group=root
     mode=0751
   tags:
     - tsadm-site

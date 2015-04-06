@@ -5,10 +5,11 @@
   file:
     path={{tsadm_homedir}}/sites
     state=directory
-    owner=tsadm
+    owner={{tsadm_user}}
     group={{www_group}}
     mode=0751
   tags: tsadm-site
+
 
 # site user
 - name: site user
@@ -25,6 +26,7 @@
     sites_all
   tags: tsadm-site
 
+
 # site user home dir perms
 - name: site user homedir perms
   sudo: true
@@ -37,6 +39,7 @@
   with_items:
     sites_all
   tags: tsadm-site
+
 
 # site user homedir data
 - name: site user homedir data

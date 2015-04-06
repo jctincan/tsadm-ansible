@@ -188,7 +188,7 @@ def get_fs_attribs(params):
         path=None,
         mode=None,
         owner=params.get('owner'),
-        group=params.get('owner'),
+        group=params.get('group'),
         secontext=None
     )
 

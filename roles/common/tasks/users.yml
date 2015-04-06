@@ -1,16 +1,16 @@
 ---
 # tsadm user group
 - name: tsadm user group
-  group: name={{www_group}} state=present
+  group: name={{tsadm_group}} state=present
 
 # tsadm user
 - name: tsadm user
   sudo: true
   user:
     uid=61000
-    name=tsadm
+    name={{tsadm_user}}
     comment=tsadm
-    group={{www_group}}
+    group={{tsadm_group}}
     home={{tsadm_homedir}}
     shell=/bin/bash
     state=present
@@ -22,7 +22,8 @@
     src=tsadm.home/
     dest={{tsadm_homedir}}
     mode=0640
-    owner=tsadm
+    owner={{tsadm_user}}
+    group={{tsadm_group}}
     backup=yes
     force=yes
 
@@ -31,8 +32,8 @@
   sudo: true
   file:
     path={{tsadm_homedir}}
-    owner=tsadm
-    group={{www_group}}
+    owner={{tsadm_user}}
+    group={{tsadm_group}}
     mode=0750
     state=directory
 
@@ -41,8 +42,8 @@
   sudo: true
   file:
     path={{tsadm_homedir}}/.ssh
-    owner=tsadm
-    group={{www_group}}
+    owner={{tsadm_user}}
+    group={{tsadm_group}}
     mode=0750
     state=directory
 
@@ -58,8 +59,8 @@
   sudo: true
   file:
     path={{tsadm_homedir}}/.ssh/id_rsa
-    owner=tsadm
-    group={{www_group}}
+    owner={{tsadm_user}}
+    group={{tsadm_group}}
     mode=0640
     state=file
 
@@ -68,7 +69,7 @@
   sudo: true
   file:
     path={{tsadm_homedir}}/.ssh/id_rsa.pub
-    owner=tsadm
-    group={{www_group}}
+    owner={{tsadm_user}}
+    group={{tsadm_group}}
     mode=0640
     state=file

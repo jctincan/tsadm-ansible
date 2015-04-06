@@ -1,5 +1,7 @@
 ---
-www_group: nobody
+tsadm_user: jrms
+tsadm_group: jrms
+www_group: jrms
 tsadm_homedir: /home/tsadm
 tsadm_etcdir: /etc/opt/tsadm
 site_repo_basedir: /srv/git/tsadm/sites

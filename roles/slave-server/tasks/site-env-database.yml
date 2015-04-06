@@ -34,7 +34,7 @@
     src=site.my.cnf
     dest={{tsadm_homedir}}/sites/{{item.site_name}}/.my.cnf
     mode=0640
-    owner=tsadm
+    owner={{tsadm_user}}
     group={{www_group}}
   with_items:
     sites_envs_all

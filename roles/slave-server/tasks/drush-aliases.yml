@@ -39,8 +39,8 @@
     path={{tsadm_homedir}}/.drush
     state=directory
     mode=0750
-    owner=tsadm
-    group={{www_group}}
+    owner={{tsadm_user}}
+    group={{tsadm_group}}
   tags:
     - tsadm-site
     - site-drush
@@ -53,8 +53,8 @@
     src=site.aliases.drushrc.php
     dest={{tsadm_homedir}}/.drush/{{item.site_name}}.aliases.drushrc.php
     mode=0640
-    owner=tsadm
-    group={{www_group}}
+    owner={{tsadm_user}}
+    group={{tsadm_group}}
     validate='php -l %s'
   with_items:
     sites_envs_all

@@ -8,6 +8,9 @@ playbook_gather_facts: false
 
 
 debian_packages_common:
+  - name: python-mysqldb
+    state: present
+    purge: no
   - name: php5-cli
     state: present
     purge: no

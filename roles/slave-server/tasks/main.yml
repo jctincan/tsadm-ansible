@@ -3,3 +3,4 @@
 - include: site-auth.yml
 - include: site-envs.yml
 - include: drush-aliases.yml
+- include: site-env-database.yml

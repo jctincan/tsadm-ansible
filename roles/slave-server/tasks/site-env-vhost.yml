@@ -1,0 +1,26 @@
+---
+# envs vhost dir
+- name: site env vhosts dir
+  sudo: true
+  file: path={{tsadm_etcdir}}/apache.d
+    state=directory
+    group={{www_group}}
+    mode=0750
+  tags:
+    - env-vhost
+
+
+# env vhost file
+- name: site env vhost file
+  sudo: true
+  template:
+    src=site-env-apache.conf
+    dest={{tsadm_etcdir}}/apache.d/{{item.0.uid}}-{{item.0.site_name}}-{{item.1.name}}.conf
+    mode=0640
+    group={{www_group}}
+    #~ validate='apachectl -S'
+  with_subelements:
+    - sites_envs_all
+    - envs
+  tags:
+    - env-vhost

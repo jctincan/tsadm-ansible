@@ -27,15 +27,20 @@ sites_all_auth:
 
 sites_envs_all:
   - site_name: 'regr'
+    uid: 61001
     envs:
       - name: 'dev'
         host_fqdn: 'node0.tsadm'
+        host_www_port: 80
         git_uri: 'ssh://regr@tsadm.chroot:22/~/regr.git'
       - name: 'test'
         host_fqdn: 'node0.tsadm'
+        host_www_port: 80
         git_uri: 'ssh://regr@tsadm.chroot:22/~/regr.git'
   - site_name: 's0'
+    uid: 61002
     envs:
       - name: 'dev'
         host_fqdn: 'node0.tsadm'
+        host_www_port: 80
         git_uri: 'ssh://s0@tsadm.chroot:22/~/s0.git'

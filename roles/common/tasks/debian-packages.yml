@@ -1,11 +1,22 @@
 ---
-- name: debian packages
+- name: debian packages install
+  sudo: true
+  apt:
+    name={{item}}
+    state=present
+  with_items:
+    debian_packages_install
+  tags:
+    - debian-packages
+
+
+- name: debian packages purge
   sudo: true
   apt:
     name={{item.name}}
-    state={{item.state}}
-    purge={{item.purge}}
+    state=absent
+    purge=yes
   with_items:
-    debian_packages_common
+    debian_packages_purge
   tags:
     - debian-packages

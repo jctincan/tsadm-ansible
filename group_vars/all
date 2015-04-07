@@ -10,22 +10,14 @@ repo_user_groups: authcmds
 playbook_gather_facts: false
 
 
-debian_packages_common:
-  - name: python-mysqldb
-    state: present
-    purge: no
-  - name: php5-cli
-    state: present
-    purge: no
-  - name: python3
-    state: present
-    purge: no
-  - name: xinetd
-    state: present
-    purge: no
-  - name: at
-    state: present
-    purge: no
+debian_packages_purge: []
+
+debian_packages_install:
+  - python-mysqldb
+  - php5-cli
+  - python3
+  - xinetd
+  - at
 
 
 sites_all:

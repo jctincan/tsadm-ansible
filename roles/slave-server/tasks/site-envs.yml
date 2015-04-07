@@ -20,7 +20,7 @@
   sudo: true
   site_env_perms:
     env_basedir={{tsadm_homedir}}/sites/{{item.0.site_name}}/{{item.1.name}}
-    owner={{item.0.site_name}}
+    owner={{tsadm_user}}
     group={{www_group}}
     public_owner={{item.0.site_name}}
     public_group={{www_group}}

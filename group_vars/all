@@ -1,5 +1,5 @@
 ---
-tsadm_user: jrms
+tsadm_user: tsadm
 tsadm_group: jrms
 www_group: jrms
 tsadm_homedir: /home/tsadm
@@ -15,6 +15,15 @@ debian_packages_common:
     state: present
     purge: no
   - name: php5-cli
+    state: present
+    purge: no
+  - name: python3
+    state: present
+    purge: no
+  - name: xinetd
+    state: present
+    purge: no
+  - name: at
     state: present
     purge: no
 

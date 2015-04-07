@@ -1,6 +1,6 @@
 ---
 # master server tasks
-- hosts: master-server
+- hosts: master_server
   gather_facts: playbook_gather_facts
   tasks:
     - include: roles/master-server/tasks/site-repo.yml
@@ -9,7 +9,7 @@
     - include: roles/master-server/tasks/developer-ssh-config.yml
 
 # slave servers tasks
-- hosts: slave-servers
+- hosts: slave_servers
   gather_facts: playbook_gather_facts
   tasks:
     - include: roles/slave-server/tasks/site-user.yml

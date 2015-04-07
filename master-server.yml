@@ -1,5 +1,5 @@
 ---
-- hosts: master-server
+- hosts: master_server
   gather_facts: playbook_gather_facts
   roles:
     - common

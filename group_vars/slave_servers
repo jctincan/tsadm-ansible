@@ -1,0 +1,5 @@
+---
+# vars to be re-set by dinamic inventory
+sites_all: []
+sites_all_auth: {}
+sites_envs_all: []

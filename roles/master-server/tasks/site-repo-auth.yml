@@ -17,7 +17,7 @@
 # ssh auth
 - name: site repo ssh auth
   sudo: true
-  lineinfile: "dest={{site_repo_basedir}}/{{item.0.name}}/.ssh/authorized_keys state={{item.1.state}} line='{{item.1.key}}' mode=0640 owner={{item.0.name}} group={{item.0.name}} create=yes"
+  lineinfile: "dest={{site_repo_basedir}}/{{item.0.name}}/.ssh/authorized_keys state=present line='{{item.1}}' mode=0640 owner={{item.0.name}} group={{item.0.name}} create=yes"
   with_subelements:
     - sites_all_auth
     - auth_keys

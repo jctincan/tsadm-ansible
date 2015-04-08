@@ -3,7 +3,7 @@
 - name: developer user
   sudo: true
   user: name={{item.name}}
-        comment='tsadm developer {{item.name}}'
+        comment='tsadm developer'
         shell=/bin/bash
         home=/home/{{item.name}}
         state=present
@@ -11,6 +11,7 @@
     developers_all
   tags:
     - developer-setup
+
 
 # developer home perms
 - name: developer home perms

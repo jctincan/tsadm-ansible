@@ -23,7 +23,7 @@
     shell=/bin/bash
     state=present
   with_items:
-    sites_all
+    slave_sites
   tags: tsadm-site
 
 
@@ -37,7 +37,7 @@
     group={{www_group}}
     mode=0751
   with_items:
-    sites_all
+    slave_sites
   tags: tsadm-site
 
 
@@ -52,5 +52,5 @@
     backup=yes
     force=yes
   with_items:
-    sites_all
+    slave_sites
   tags: tsadm-site

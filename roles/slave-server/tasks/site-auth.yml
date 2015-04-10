@@ -8,7 +8,8 @@
     owner={{item.name}}
     group={{www_group}}
     mode=0750
-  with_items: sites_all
+  with_items:
+    slave_sites
   tags:
     - tsadm-site
     - site-repo

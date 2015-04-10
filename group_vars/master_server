@@ -1,6 +1,0 @@
----
-# vars to be re-set by dinamic inventory
-#~ developers_all: []
-#~ sites_all: []
-#~ sites_all_auth: []
-#~ sites_envs_all: []

@@ -20,7 +20,7 @@
     group={{www_group}}
     #~ validate='apachectl -S'
   with_subelements:
-    - sites_envs_all
+    - slave_sites_envs
     - envs
   tags:
     - env-vhost

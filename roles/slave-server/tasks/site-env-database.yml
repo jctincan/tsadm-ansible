@@ -5,7 +5,7 @@
     name={{item.0.site_name}}{{item.1.name}}db
     state=present
   with_subelements:
-    - sites_envs_all
+    - slave_sites_envs
     - envs
   tags:
     - tsadm-site
@@ -20,7 +20,7 @@
     priv={{item.0.site_name}}%db.*:ALL
     state=present
   with_subelements:
-    - sites_envs_all
+    - slave_sites_envs
     - envs
   tags:
     - tsadm-site
@@ -37,7 +37,7 @@
     owner={{tsadm_user}}
     group={{www_group}}
   with_items:
-    sites_envs_all
+    slave_sites_envs
   tags:
     - tsadm-site
     - site-env-db

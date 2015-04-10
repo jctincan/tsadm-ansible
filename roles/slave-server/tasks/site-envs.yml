@@ -9,7 +9,7 @@
     accept_hostkey=yes
     force=no
   with_subelements:
-    - sites_envs_all
+    - slave_sites_envs
     - envs
   tags:
     - tsadm-site
@@ -26,7 +26,7 @@
     public_group={{www_group}}
     public_path_regex=r'.*/sites/.*/files($|/.*)'
   with_subelements:
-    - sites_envs_all
+    - slave_sites_envs
     - envs
   tags:
     - tsadm-site

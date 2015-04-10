@@ -9,7 +9,7 @@
     owner={{item.site_name}}
     group={{www_group}}
   with_items:
-    sites_envs_all
+    slave_sites_envs
   tags:
     - tsadm-site
     - site-drush
@@ -26,7 +26,7 @@
     group={{www_group}}
     validate='php -l %s'
   with_items:
-    sites_envs_all
+    slave_sites_envs
   tags:
     - tsadm-site
     - site-drush
@@ -57,7 +57,7 @@
     group={{tsadm_group}}
     validate='php -l %s'
   with_items:
-    sites_envs_all
+    slave_sites_envs
   tags:
     - tsadm-site
     - site-drush

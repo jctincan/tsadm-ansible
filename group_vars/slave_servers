@@ -1,14 +1,4 @@
 ---
-# vars to be re-set by dinamic inventory
-#~ sites_all: []
-
-#~ sites_all_auth:
-  #~ - name: 'regr'
-    #~ auth_keys:
-      #~ - state: present
-        #~ key: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDtFXopCrY2qMfDQeFkKDS5jaktvvPYXWkiAT+dDCRgyuVf8PF22CxDHwi0DqvgC8hwSnIUbROKI5/GZ8LDPTtKxDwGpGCQMDSZQTUNoLZza/JaoTNkjrVv5OYTUffBnCy9wDqr9fNNGv3glqJZyOnz2buYNHZGAXHQBpnO/VpwDAs6u7gdByEADfFdb5tLhQXY+8GDvJJmhSr7o5lccbiunMGe73ewau9VdFCmyruy48GlmwnMzhw9TgfWLbflQ79tBodOG/PW4UJ5anKkw0h7qeXTNgS8BN8Y1scReNd22r08bNIhZFFr24C/GnUiIZjdeFBLA7D5/LG2KEpIKoMr TSADM-AT-NODE0'
-
-sites_envs_all: []
 
 #~ sites_envs_all:
   #~ - site_name: 'regr'

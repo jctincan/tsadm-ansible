@@ -30,5 +30,17 @@
     - developer-setup
 
 
-# TODO
 # developer ssh authorized_keys
+- name: developer ssh authorized_keys
+  sudo: true
+  template: src=developer-ssh-authorized_keys
+    dest=/home/{{tsadm_developers[item].name}}/.ssh/authorized_keys
+    owner={{tsadm_developers[item].name}}
+    group={{tsadm_developers[item].name}}
+    mode=0600
+    backup=yes
+  with_items:
+    tsadm_auth_developers
+  tags:
+    - tsadm-site
+    - developer-setup

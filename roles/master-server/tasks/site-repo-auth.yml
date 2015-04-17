@@ -3,12 +3,13 @@
 - name: site repo ssh dir
   sudo: true
   file:
-    path={{site_repo_basedir}}/{{item.name}}/.ssh
+    path={{site_repo_basedir}}/{{tsadm_sites[item].name}}/.ssh
     state=directory
-    owner={{item.name}}
-    group={{item.name}}
+    owner={{tsadm_sites[item].name}}
+    group={{tsadm_sites[item].name}}
     mode=0750
-  with_items: sites_all
+  with_items:
+    tsadm_sites_repo
   tags:
     - tsadm-site
     - site-repo

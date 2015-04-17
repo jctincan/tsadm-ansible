@@ -2,13 +2,13 @@
 # developer user
 - name: developer user
   sudo: true
-  user: name={{item.name}}
+  user: name={{tsadm_developers[item].name}}
         comment='tsadm developer'
         shell=/bin/bash
-        home=/home/{{item.name}}
+        home=/home/{{tsadm_developers[item].name}}
         state=present
   with_items:
-    developers_all
+    tsadm_auth_developers
   tags:
     - developer-setup
 
@@ -16,12 +16,12 @@
 # developer home perms
 - name: developer home perms
   sudo: true
-  file: path=/home/{{item.name}}
+  file: path=/home/{{tsadm_developers[item].name}}
         state=directory
-        owner={{item.name}}
-        group={{item.name}}
+        owner={{tsadm_developers[item].name}}
+        group={{tsadm_developers[item].name}}
         mode=0750
   with_items:
-    developers_all
+    tsadm_auth_developers
   tags:
     - developer-setup

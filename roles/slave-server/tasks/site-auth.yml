@@ -17,6 +17,12 @@
 
 
 # site ssh auth
+# TODO:
+# * usar el module template en lugar de lineinfile,
+#   así me parece mejor porque se arma todo el archivo localmente
+#   y se compara con el destino. De esta manera resuelvo add y remove
+#   todo de una. lineinfile sólo se fija que este una linea present o
+#   absent, asi que implicaria dos tasks en lugar de una con template.
 - name: site ssh auth
   sudo: true
   lineinfile:

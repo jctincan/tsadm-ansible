@@ -2,27 +2,33 @@
 # developer ssh homedir
 - name: developer ssh homedir
   sudo: true
-  file: path=/home/{{item.name}}/.ssh
+  file: path=/home/{{tsadm_developers[item].name}}/.ssh
         state=directory
-        owner={{item.name}}
-        group={{item.name}}
+        owner={{tsadm_developers[item].name}}
+        group={{tsadm_developers[item].name}}
         mode=0750
-  with_items: developers_all
+  with_items:
+    tsadm_auth_developers
   tags:
     - tsadm-site
     - developer-setup
+
 
 # developer ssh config
 - name: developer ssh config
   sudo: true
   template: src=developer-ssh-config
-            dest=/home/{{item.name}}/.ssh/config
-            owner={{item.name}}
-            group={{item.name}}
+            dest=/home/{{tsadm_developers[item].name}}/.ssh/config
+            owner={{tsadm_developers[item].name}}
+            group={{tsadm_developers[item].name}}
             mode=0640
             backup=yes
   with_items:
-    developers_all
+    tsadm_auth_developers
   tags:
     - tsadm-site
     - developer-setup
+
+
+# TODO
+# developer ssh authorized_keys

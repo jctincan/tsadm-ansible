@@ -1,8 +1,9 @@
 # {{ansible_managed}}
-{% for tsadm_site in item.sites_auth %}{% for tsadm_env in tsadm_site.auth_envs %}
-Host {{tsadm_site.name}}.{{tsadm_env.name}}
-    HostName {{tsadm_env.host_fqdn}}
-    User {{tsadm_site.name}}
 
-{% endfor %}{% endfor %}
+{% for envid in tsadm_developers[item].envs_auth %}
+Host {{tsadm_sites_envs[envid].site_name}}.{{tsadm_sites_envs[envid].env_name}}
+    User {{tsadm_sites_envs[envid].site_name}}
+    HostName {{tsadm_sites_envs[envid].host_fqdn}}
+
+{% endfor %}
 # {{ansible_managed}}

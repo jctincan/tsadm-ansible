@@ -15,13 +15,18 @@
     - site-repo
     - site-auth
 
+
 # ssh auth
 - name: site repo ssh auth
   sudo: true
-  lineinfile: "dest={{site_repo_basedir}}/{{item.0.name}}/.ssh/authorized_keys state=present line='{{item.1}}' mode=0640 owner={{item.0.name}} group={{item.0.name}} create=yes"
-  with_subelements:
-    - sites_all_auth
-    - auth_keys
+  template: src=site-repo-ssh-authorized_keys
+    dest={{site_repo_basedir}}/{{tsadm_sites[item.id].name}}/.ssh/authorized_keys
+    owner={{tsadm_sites[item.id].name}}
+    group={{tsadm_sites[item.id].name}}
+    mode=0600
+    backup=yes
+  with_items:
+    tsadm_sites_repo_auth
   tags:
     - tsadm-site
     - site-repo

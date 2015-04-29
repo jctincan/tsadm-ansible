@@ -1,2 +1,2 @@
-{% for ak in tsadm_developers[item].auth_keys %}{{ak}}
+{% for ak in tsadmdb_user_auth_keys[item].auth_keys %}{{ak}}
 {% endfor %}

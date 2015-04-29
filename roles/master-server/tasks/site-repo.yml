@@ -15,51 +15,54 @@
   sudo: true
   user:
     uid={{item}}
-    name={{tsadm_sites[item].name}}
+    name={{tsadmdb_site[item].name}}
     groups={{repo_user_groups}}
-    comment='tsadm repo {{tsadm_sites[item].name}}'
-    home={{site_repo_basedir}}/{{tsadm_sites[item].name}}
+    comment='tsadm repo {{tsadmdb_site[item].name}}'
+    home={{site_repo_basedir}}/{{tsadmdb_site[item].name}}
     shell=/usr/bin/git-shell
     state=present
   with_items:
-    tsadm_sites_repo
+    tsadmdb_site.keys()
   tags:
     - tsadm-site
+
 
 # repo home perms
 - name: site repo home perms
   sudo: true
   file:
-    path={{site_repo_basedir}}/{{tsadm_sites[item].name}}
+    path={{site_repo_basedir}}/{{tsadmdb_site[item].name}}
     state=directory
-    owner={{tsadm_sites[item].name}}
-    group={{tsadm_sites[item].name}}
+    owner={{tsadmdb_site[item].name}}
+    group={{tsadmdb_site[item].name}}
     mode=0751
   with_items:
-    tsadm_sites_repo
+    tsadmdb_site.keys()
   tags:
     - tsadm-site
     - site-repo
 
+
 # git repo
 - name: site git repo
   sudo: true
-  script: git-repo-create.sh {{tsadm_sites[item].name}} {{site_repo_basedir}}/{{tsadm_sites[item].name}}/{{tsadm_sites[item].name}}.git {{www_group}} creates={{site_repo_basedir}}/{{tsadm_sites[item].name}}/{{tsadm_sites[item].name}}.git/description
+  script: git-repo-create.sh {{tsadmdb_site[item].name}} {{site_repo_basedir}}/{{tsadmdb_site[item].name}}/{{tsadmdb_site[item].name}}.git {{www_group}} creates={{site_repo_basedir}}/{{tsadmdb_site[item].name}}/{{tsadmdb_site[item].name}}.git/description
   with_items:
-    tsadm_sites_repo
+    tsadmdb_site.keys()
   tags:
     - tsadm-site
     - site-repo
+
 
 # git post-receive hook
 - name: site repo post-receive hook
   sudo: true
   file: src={{site_repo_post_receive_hook}}
-        path={{site_repo_basedir}}/{{tsadm_sites[item].name}}/{{tsadm_sites[item].name}}.git/hooks/post-receive
-        state=link
-        force=yes
+    path={{site_repo_basedir}}/{{tsadmdb_site[item].name}}/{{tsadmdb_site[item].name}}.git/hooks/post-receive
+    state=link
+    force=yes
   with_items:
-    tsadm_sites_repo
+    tsadmdb_site.keys()
   tags:
     - tsadm-site
     - site-repo

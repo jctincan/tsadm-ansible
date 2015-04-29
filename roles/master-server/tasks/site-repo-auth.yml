@@ -3,13 +3,13 @@
 - name: site repo ssh dir
   sudo: true
   file:
-    path={{site_repo_basedir}}/{{tsadm_sites[item].name}}/.ssh
+    path={{site_repo_basedir}}/{{tsadmdb_site[item].name}}/.ssh
     state=directory
-    owner={{tsadm_sites[item].name}}
-    group={{tsadm_sites[item].name}}
+    owner={{tsadmdb_site[item].name}}
+    group={{tsadmdb_site[item].name}}
     mode=0750
   with_items:
-    tsadm_sites_repo
+    tsadmdb_site.keys()
   tags:
     - tsadm-site
     - site-repo
@@ -20,13 +20,13 @@
 - name: site repo ssh auth
   sudo: true
   template: src=site-repo-ssh-authorized_keys
-    dest={{site_repo_basedir}}/{{tsadm_sites[item.id].name}}/.ssh/authorized_keys
-    owner={{tsadm_sites[item.id].name}}
-    group={{tsadm_sites[item.id].name}}
+    dest={{site_repo_basedir}}/{{tsadmdb_site[item].name}}/.ssh/authorized_keys
+    owner={{tsadmdb_site[item].name}}
+    group={{tsadmdb_site[item].name}}
     mode=0600
     backup=yes
   with_items:
-    tsadm_sites_repo_auth
+    tsadm_site_auth.keys()
   tags:
     - tsadm-site
     - site-repo

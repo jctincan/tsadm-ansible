@@ -1,9 +1,11 @@
 # {{ansible_managed}}
 
-{% for envid in tsadm_developers[item].envs_auth %}
-Host {{tsadm_sites_envs[envid].site_name}}.{{tsadm_sites_envs[envid].env_name}}
-    User {{tsadm_sites_envs[envid].site_name}}
-    HostName {{tsadm_sites_envs[envid].host_fqdn}}
+{% for envid in tsadmdb_user_siteenv_acl[item].siteenv_ids %}
+{% set site_id = tsadmdb_siteenv[envid].site_id %}
+{% set host_id = tsadmdb_siteenv[envid].host_id %}
+Host {{tsadmdb_site[site_id].name}}.{{tsadmdb_siteenv[envid].name}}
+    User {{tsadmdb_site[site_id].name}}
+    HostName {{tsadmdb_host[host_id].fqdn}}
 
 {% endfor %}
 # {{ansible_managed}}

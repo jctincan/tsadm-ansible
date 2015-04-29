@@ -1,2 +1,3 @@
-{% for devid in item.auth_developers %}{% for ak in tsadm_developers[devid].auth_keys %}{{ak}}
-{% endfor %}{% endfor %}
+{% for ak in tsadm_site_auth[item].auth_keys %}
+{{ak}}
+{% endfor %}

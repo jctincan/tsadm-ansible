@@ -1,12 +1,16 @@
 <?php
 # {{ansible_managed}}
-{% for tsadm_env in item.envs %}
-$aliases['{{tsadm_env.name}}'] = array(
-    'root' => '{{tsadm_homedir}}/sites/{{item.site_name}}/{{tsadm_env.name}}/docroot',
-    'uri' => '{{item.site_name}}{{tsadm_env.name}}.tsadm.tincan.co.uk',
-    'remote-host' => '{{tsadm_env.host_fqdn}}',
-    'remote-user' => '{{item.site_name}}'
+
+{% for senv in tsadmdb_siteenv.values() %}
+{% if senv.site_id == tsadmdb_site[item].id %}
+$aliases['{{senv.name}}'] = array(
+    'root' => '{{tsadm_homedir}}/sites/{{tsadmdb_site[item].name}}/{{senv.name}}/docroot',
+    'uri' => '{{tsadmdb_site[item].name}}{{senv.name}}.tsadm.tincan.co.uk',
+    'remote-host' => '{{tsadmdb_host[senv.host_id].fqdn}}',
+    'remote-user' => '{{tsadmdb_site[item].name}}'
 );
+
+{% endif %}
 {% endfor %}
 # {{ansible_managed}}
 ?>

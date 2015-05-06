@@ -8,36 +8,43 @@
     - tsadm-site
     - site-drush
 
+
 # site drush aliases
 - name: site drush aliases
   sudo: true
-  template: src=site.aliases.drushrc.php
-            dest={{tsadm_homedir}}/drushrc/{{item.site_name}}.aliases.drushrc.php
-            validate='php -l %s'
-  with_items: sites_envs_all
+  template:
+    src=site.aliases.drushrc.php
+    dest={{tsadm_homedir}}/drushrc/{{tsadmdb_site[item].name}}.aliases.drushrc.php
+    validate='php -l %s'
+  with_items:
+    tsadmdb_site.keys()
   tags:
     - tsadm-site
     - site-drush
+
 
 # site develoloer drush homedir
 - name: site developer drush homedir
   sudo: true
-  file: path=/home/{{item.name}}/.drush
+  file: path=/home/{{tsadmdb_user[item].name}}/.drush
         state=directory
-  with_items: developers_all
+  with_items:
+    tsadm_developers
   tags:
     - tsadm-site
     - site-drush
 
+
 # site drush aliases for developer
 - name: site drush aliases for developer
   sudo: true
-  file: src={{tsadm_homedir}}/drushrc/{{item.1.name}}.aliases.drushrc.php
-        path=/home/{{item.0.name}}/.drush/{{item.1.name}}.aliases.drushrc.php
-        state=link
+  file:
+    src={{tsadm_homedir}}/drushrc/{{tsadmdb_site[item.0.site_id].name}}.aliases.drushrc.php
+    path=/home/{{tsadmdb_user[item.1].name}}/.drush/{{tsadmdb_site[item.0.site_id].name}}.aliases.drushrc.php
+    state=link
   with_subelements:
-    - developers_all
-    - sites_auth
+    - tsadm_site_auth
+    - auth_users
   tags:
     - tsadm-site
     - site-drush

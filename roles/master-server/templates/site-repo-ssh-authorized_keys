@@ -1,3 +1,8 @@
-{% for ak in tsadm_site_auth[item].auth_keys %}
+{% for user_id in tsadm_site_auth[item].auth_users %}
+{% for ak in tsadmdb_user_auth_keys[user_id].auth_keys %}
 {{ak}}
+{% endfor %}
+{% endfor %}
+{% for host_id in tsadm_site_auth[item].auth_hosts %}
+{{tsadmdb_host[host_id].ssh_key}}
 {% endfor %}

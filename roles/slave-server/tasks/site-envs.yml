@@ -3,31 +3,30 @@
 - name: site env git checkout
   sudo: true
   git:
-    dest={{tsadm_homedir}}/sites/{{item.0.site_name}}/{{item.1.name}}
-    repo={{item.1.git_uri}}
+    dest={{tsadm_homedir}}/sites/{{tsadmdb_siteenv[item].site_name}}/{{tsadmdb_siteenv[item].name}}
+    repo={{tsadmdb_siteenv[item].site_repo_uri}}
     key_file={{tsadm_homedir}}/.ssh/id_rsa
     accept_hostkey=yes
     force=no
-  with_subelements:
-    - slave_sites_envs
-    - envs
+  with_items:
+    tsadm_slave_siteenvs
   tags:
     - tsadm-site
     - site-envs
+
 
 # env files/dirs permissions
 - name: site env perms
   sudo: true
   site_env_perms:
-    env_basedir={{tsadm_homedir}}/sites/{{item.0.site_name}}/{{item.1.name}}
+    env_basedir={{tsadm_homedir}}/sites/{{tsadmdb_siteenv[item].site_name}}/{{tsadmdb_siteenv[item].name}}
     owner={{tsadm_user}}
     group={{www_group}}
-    public_owner={{item.0.site_name}}
+    public_owner={{tsadmdb_siteenv[item].site_name}}
     public_group={{www_group}}
     public_path_regex=r'.*/sites/.*/files($|/.*)'
-  with_subelements:
-    - slave_sites_envs
-    - envs
+  with_items:
+    tsadm_slave_siteenvs
   tags:
     - tsadm-site
     - site-envs

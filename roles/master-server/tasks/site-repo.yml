@@ -43,8 +43,8 @@
     - site-repo
 
 
-# git repo
-- name: site git repo
+# create git repo
+- name: site create git repo
   sudo: true
   script: git-repo-create.sh {{tsadmdb_site[item].name}} {{site_repo_basedir}}/{{tsadmdb_site[item].name}}/{{tsadmdb_site[item].name}}.git {{www_group}} creates={{site_repo_basedir}}/{{tsadmdb_site[item].name}}/{{tsadmdb_site[item].name}}.git/description
   with_items:

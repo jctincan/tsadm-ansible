@@ -8,36 +8,38 @@
     owner={{tsadm_user}}
     group={{www_group}}
     mode=0751
-  tags: tsadm-site
+  tags:
+    tsadm-site
 
 
 # site user
 - name: site user
   sudo: true
   user:
-    uid={{item.uid}}
-    name={{item.name}}
-    comment='tsadm {{item.name}}'
+    uid={{item}}
+    name={{tsadmdb_site[item].name}}
+    comment='tsadm {{tsadmdb_site[item].name}}'
     group={{www_group}}
-    home={{tsadm_homedir}}/sites/{{item.name}}
+    home={{tsadm_homedir}}/sites/{{tsadmdb_site[item].name}}
     shell=/bin/bash
     state=present
   with_items:
-    slave_sites
-  tags: tsadm-site
+    tsadm_slave_sites
+  tags:
+    tsadm-site
 
 
 # site user home dir perms
 - name: site user homedir perms
   sudo: true
   file:
-    path={{tsadm_homedir}}/sites/{{item.name}}
+    path={{tsadm_homedir}}/sites/{{tsadmdb_site[item].name}}
     state=directory
-    owner={{item.name}}
+    owner={{tsadmdb_site[item].name}}
     group={{www_group}}
     mode=0751
   with_items:
-    slave_sites
+    tsadm_slave_sites
   tags: tsadm-site
 
 
@@ -46,11 +48,11 @@
   sudo: true
   copy:
     src=site-user.home/
-    dest={{tsadm_homedir}}/sites/{{item.name}}
+    dest={{tsadm_homedir}}/sites/{{tsadmdb_site[item].name}}
     mode=0640
-    owner={{item.name}}
+    owner={{tsadmdb_site[item].name}}
     backup=yes
     force=yes
   with_items:
-    slave_sites
+    tsadm_slave_sites
   tags: tsadm-site

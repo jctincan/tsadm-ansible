@@ -3,39 +3,31 @@
 - name: site ssh dir
   sudo: true
   file:
-    path={{tsadm_homedir}}/sites/{{item.name}}/.ssh
+    path={{tsadm_homedir}}/sites/{{tsadmdb_site[item].name}}/.ssh
     state=directory
-    owner={{item.name}}
+    owner={{tsadmdb_site[item].name}}
     group={{www_group}}
     mode=0750
   with_items:
-    slave_sites
+    tsadm_slave_sites
   tags:
     - tsadm-site
     - site-repo
     - site-auth
 
 
-# site ssh auth
-# TODO:
-# * usar el module template en lugar de lineinfile,
-#   así me parece mejor porque se arma todo el archivo localmente
-#   y se compara con el destino. De esta manera resuelvo add y remove
-#   todo de una. lineinfile sólo se fija que este una linea present o
-#   absent, asi que implicaria dos tasks en lugar de una con template.
+# ssh auth
 - name: site ssh auth
   sudo: true
-  lineinfile:
-    dest={{tsadm_homedir}}/sites/{{item.0.name}}/.ssh/authorized_keys
-    state=present
-    line='{{item.1}}'
-    mode=0640
-    owner={{item.0.name}}
+  template:
+    src=site-ssh-authorized_keys
+    dest={{tsadm_homedir}}/sites/{{tsadmdb_site[item].name}}/.ssh/authorized_keys
+    owner={{tsadmdb_site[item].name}}
     group={{www_group}}
-    create=yes
-  with_subelements:
-    - slave_sites_auth
-    - auth_keys
+    mode=0600
+    backup=yes
+  with_items:
+    tsadm_slave_sites
   tags:
     - tsadm-site
     - site-repo

@@ -3,13 +3,13 @@
 - name: site drush dir
   sudo: true
   file:
-    path={{tsadm_homedir}}/sites/{{item.site_name}}/.drush
+    path={{tsadm_homedir}}/sites/{{tsadmdb_site[item].name}}/.drush
     state=directory
     mode=0750
-    owner={{item.site_name}}
+    owner={{tsadmdb_site[item].name}}
     group={{www_group}}
   with_items:
-    slave_sites_envs
+    tsadm_slave_sites
   tags:
     - tsadm-site
     - site-drush
@@ -20,20 +20,21 @@
   sudo: true
   template:
     src=site.aliases.drushrc.php
-    dest={{tsadm_homedir}}/sites/{{item.site_name}}/.drush/{{item.site_name}}.aliases.drushrc.php
+    dest={{tsadm_homedir}}/sites/{{tsadmdb_site[item].name}}/.drush/{{tsadmdb_site[item].name}}.aliases.drushrc.php
     mode=0640
-    owner={{item.site_name}}
+    owner={{tsadmdb_site[item].name}}
     group={{www_group}}
     validate='php -l %s'
+    backup=yes
   with_items:
-    slave_sites_envs
+    tsadm_slave_sites
   tags:
     - tsadm-site
     - site-drush
 
 
-# tsadm drush dir
-- name: tsadm drush dir
+# tsadm user drush dir
+- name: tsadm user drush dir
   sudo: true
   file:
     path={{tsadm_homedir}}/.drush
@@ -46,18 +47,19 @@
     - site-drush
 
 
-# tsadm site drush aliases
-- name: tsadm site drush aliases
+# tsadm user drush aliases
+- name: tsadm user drush aliases
   sudo: true
   template:
     src=site.aliases.drushrc.php
-    dest={{tsadm_homedir}}/.drush/{{item.site_name}}.aliases.drushrc.php
+    dest={{tsadm_homedir}}/.drush/{{tsadmdb_site[item].name}}.aliases.drushrc.php
     mode=0640
     owner={{tsadm_user}}
     group={{tsadm_group}}
     validate='php -l %s'
+    backup=yes
   with_items:
-    slave_sites_envs
+    tsadm_slave_sites
   tags:
     - tsadm-site
     - site-drush

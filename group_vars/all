@@ -1,4 +1,5 @@
 ---
+tsadm_master_domain: tsadm.tincan.co.uk
 tsadm_user: tsadm
 tsadm_group: jrms
 www_group: jrms

@@ -15,12 +15,10 @@
   sudo: true
   template:
     src=site-env-apache.conf
-    dest={{tsadm_etcdir}}/apache.d/{{item.0.uid}}-{{item.0.site_name}}-{{item.1.name}}.conf
+    dest={{tsadm_etcdir}}/apache.d/{{tsadmdb_siteenv[item].site_id}}-{{tsadmdb_siteenv[item].site_name}}.{{tsadmdb_siteenv[item].name}}.conf
     mode=0640
     group={{www_group}}
-    #~ validate='apachectl -S'
-  with_subelements:
-    - slave_sites_envs
-    - envs
+  with_items:
+    tsadm_slave_siteenvs
   tags:
     - env-vhost

@@ -2,11 +2,10 @@
 # site env database
 - name: site env db
   mysql_db:
-    name={{item.0.site_name}}{{item.1.name}}db
+    name={{tsadmdb_siteenv[item].site_name}}{{tsadmdb_siteenv[item].name}}db
     state=present
-  with_subelements:
-    - slave_sites_envs
-    - envs
+  with_items:
+    tsadm_slave_siteenvs
   tags:
     - tsadm-site
     - site-env-db
@@ -15,13 +14,12 @@
 # site env database user
 - name: site env db user
   mysql_user:
-    name={{item.0.site_name}}
-    password="{{ lookup('password', inventory_hostname + '.' + item.0.site_name + '.my.passwd chars=ascii_letters,digits') }}"
-    priv={{item.0.site_name}}%db.*:ALL
+    name={{tsadmdb_siteenv[item].site_name}}
+    password="{{ lookup('password', inventory_hostname + '.' + tsadmdb_siteenv[item].site_name + '.my.passwd chars=ascii_letters,digits') }}"
+    priv={{tsadmdb_siteenv[item].site_name}}%db.*:ALL
     state=present
-  with_subelements:
-    - slave_sites_envs
-    - envs
+  with_items:
+    tsadm_slave_siteenvs
   tags:
     - tsadm-site
     - site-env-db
@@ -32,12 +30,12 @@
   sudo: true
   template:
     src=site.my.cnf
-    dest={{tsadm_homedir}}/sites/{{item.site_name}}/.my.cnf
+    dest={{tsadm_homedir}}/sites/{{tsadmdb_siteenv[item].site_name}}/.my.cnf
     mode=0640
     owner={{tsadm_user}}
     group={{www_group}}
   with_items:
-    slave_sites_envs
+    tsadm_slave_siteenvs
   tags:
     - tsadm-site
     - site-env-db

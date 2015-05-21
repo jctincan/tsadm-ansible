@@ -1,5 +1,5 @@
 # {{ansible_managed}}
 [client]
-user = {{item.site_name}}
-password = {{ lookup('password', inventory_hostname + '.' + item.site_name + '.my.passwd chars=ascii_letters,digits') }}
+user = {{tsadmdb_siteenv[item].site_name}}
+password = {{ lookup('password', inventory_hostname + '.' + tsadmdb_siteenv[item].site_name + '.my.passwd chars=ascii_letters,digits') }}
 # {{ansible_managed}}

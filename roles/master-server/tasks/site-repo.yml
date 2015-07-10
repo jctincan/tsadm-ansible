@@ -1,7 +1,6 @@
 ---
 # repos basedir
 - name: site repo basedir
-  sudo: true
   file:
     path={{site_repo_basedir}}
     state=directory
@@ -18,9 +17,7 @@
 
 # repo user
 - name: site repo user
-  sudo: true
   user:
-    uid={{item}}
     name={{tsadmdb_site[item].name}}
     groups={{repo_user_groups}}
     comment='tsadm repo {{tsadmdb_site[item].name}}'
@@ -35,7 +32,6 @@
 
 # repo home perms
 - name: site repo home perms
-  sudo: true
   file:
     path={{site_repo_basedir}}/{{tsadmdb_site[item].name}}
     state=directory
@@ -51,7 +47,6 @@
 
 # create git repo
 - name: site create git repo
-  sudo: true
   script: git-repo-create.sh {{tsadmdb_site[item].name}} {{site_repo_basedir}}/{{tsadmdb_site[item].name}}/{{tsadmdb_site[item].name}}.git {{www_group}} creates={{site_repo_basedir}}/{{tsadmdb_site[item].name}}/{{tsadmdb_site[item].name}}.git/description
   with_items:
     tsadmdb_site.keys()
@@ -62,7 +57,6 @@
 
 # git post-receive hook
 - name: site repo post-receive hook
-  sudo: true
   file: src={{site_repo_post_receive_hook}}
     path={{site_repo_basedir}}/{{tsadmdb_site[item].name}}/{{tsadmdb_site[item].name}}.git/hooks/post-receive
     state=link

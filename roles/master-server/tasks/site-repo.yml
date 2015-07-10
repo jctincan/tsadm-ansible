@@ -10,6 +10,12 @@
     - tsadm-site
     - site-repo
 
+
+# repo user groups
+- name: site repo user group
+  group: name={{repo_user_groups}} state=present
+
+
 # repo user
 - name: site repo user
   sudo: true

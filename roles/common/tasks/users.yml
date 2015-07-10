@@ -3,9 +3,9 @@
 - name: tsadm user group
   group: name={{tsadm_group}} state=present
 
+
 # tsadm user
 - name: tsadm user
-  sudo: true
   user:
     uid=61000
     name={{tsadm_user}}
@@ -15,9 +15,9 @@
     shell=/bin/bash
     state=present
 
+
 # tsadm user homedir data
 - name: tsadm homedir data
-  sudo: true
   copy:
     src=tsadm.home/
     dest={{tsadm_homedir}}
@@ -27,9 +27,9 @@
     backup=yes
     force=yes
 
+
 # tsadm user homedir perms
 - name: tsadm homedir perms
-  sudo: true
   file:
     path={{tsadm_homedir}}
     owner={{tsadm_user}}
@@ -37,9 +37,9 @@
     mode=0750
     state=directory
 
+
 # tsadm user ssh dir
 - name: tsadm user ssh dir
-  sudo: true
   file:
     path={{tsadm_homedir}}/.ssh
     owner={{tsadm_user}}
@@ -47,16 +47,16 @@
     mode=0750
     state=directory
 
+
 # tsadm user ssh keygen
 - name: tsadm user ssh keygen
-  sudo: true
   command:
     /usr/bin/ssh-keygen -q -t rsa -f {{tsadm_homedir}}/.ssh/id_rsa -N ''
     creates={{tsadm_homedir}}/.ssh/id_rsa
 
+
 # tsadm user ssh priv key perms
 - name: tsadm user ssh priv key perms
-  sudo: true
   file:
     path={{tsadm_homedir}}/.ssh/id_rsa
     owner={{tsadm_user}}
@@ -64,9 +64,9 @@
     mode=0640
     state=file
 
+
 # tsadm user ssh pub key perms
 - name: tsadm user ssh pub key perms
-  sudo: true
   file:
     path={{tsadm_homedir}}/.ssh/id_rsa.pub
     owner={{tsadm_user}}

@@ -2,18 +2,21 @@
 # tsadm user group
 - name: tsadm user group
   group: name={{tsadm_group}} state=present
+  tags:
+    - tsadm-user
 
 
 # tsadm user
 - name: tsadm user
   user:
-    uid=61000
     name={{tsadm_user}}
     comment=tsadm
     group={{tsadm_group}}
     home={{tsadm_homedir}}
     shell=/bin/bash
     state=present
+  tags:
+    - tsadm-user
 
 
 # tsadm user homedir data
@@ -26,6 +29,8 @@
     group={{tsadm_group}}
     backup=yes
     force=yes
+  tags:
+    - tsadm-user
 
 
 # tsadm user homedir perms
@@ -36,6 +41,8 @@
     group={{tsadm_group}}
     mode=0750
     state=directory
+  tags:
+    - tsadm-user
 
 
 # tsadm user ssh dir
@@ -46,13 +53,17 @@
     group={{tsadm_group}}
     mode=0750
     state=directory
+  tags:
+    - tsadm-user
 
 
 # tsadm user ssh keygen
 - name: tsadm user ssh keygen
   command:
-    /usr/bin/ssh-keygen -q -t rsa -f {{tsadm_homedir}}/.ssh/id_rsa -N ''
+    /usr/bin/ssh-keygen -q -t rsa -f {{tsadm_homedir}}/.ssh/id_rsa -N '' -C 'tsadm@{{inventory_hostname}}'
     creates={{tsadm_homedir}}/.ssh/id_rsa
+  tags:
+    - tsadm-user
 
 
 # tsadm user ssh priv key perms
@@ -63,6 +74,8 @@
     group={{tsadm_group}}
     mode=0640
     state=file
+  tags:
+    - tsadm-user
 
 
 # tsadm user ssh pub key perms
@@ -73,3 +86,5 @@
     group={{tsadm_group}}
     mode=0640
     state=file
+  tags:
+    - tsadm-user

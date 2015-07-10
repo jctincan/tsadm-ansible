@@ -1,7 +1,6 @@
 ---
 # repo ssh dir
 - name: site repo ssh dir
-  sudo: true
   file:
     path={{site_repo_basedir}}/{{tsadmdb_site[item].name}}/.ssh
     state=directory
@@ -18,7 +17,6 @@
 
 # ssh auth
 - name: site repo ssh auth
-  sudo: true
   template:
     src=site-repo-ssh-authorized_keys
     dest={{site_repo_basedir}}/{{tsadmdb_site[item].name}}/.ssh/authorized_keys

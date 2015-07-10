@@ -15,7 +15,10 @@ elif sys.argv[0].endswith('dev.py'):
 print(run_mode)
 
 if len(sys.argv) >= 2 and sys.argv[1] == '--list':
-    print(urlopen(INVLIST_URL, timeout=15).read())
+    try:
+        print(urlopen(INVLIST_URL, timeout=15).read())
+    except Exception as e:
+        print(INVLIST_URL, str(e))
 else:
     print('{}')
 

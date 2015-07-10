@@ -1,21 +1,23 @@
 ---
+# install packages
 - name: debian packages install
-  sudo: true
   apt:
     name={{item}}
     state=present
+    update_cache=no
   with_items:
     debian_packages_install
   tags:
     - debian-packages
 
 
+# remove, and purge, packages
 - name: debian packages purge
-  sudo: true
   apt:
     name={{item.name}}
     state=absent
     purge=yes
+    update_cache=no
   with_items:
     debian_packages_purge
   tags:

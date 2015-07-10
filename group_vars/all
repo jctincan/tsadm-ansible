@@ -14,7 +14,6 @@ debian_packages_purge: []
 
 debian_packages_install:
   - python-mysqldb
-  - php5-cli
   - python3
   - xinetd
   - at

@@ -1,4 +1,7 @@
 ---
+# install debian packages
+- include: ../../common/tasks/debian-packages.yml debian_packages_install={{slave_pkg_install}}
+
 - include: site-user.yml
 - include: site-auth.yml
 - include: site-envs.yml

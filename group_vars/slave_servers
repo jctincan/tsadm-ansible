@@ -1,4 +1,3 @@
 ---
 slave_pkg_install:
-    - git
     - php5-cli

@@ -1,0 +1,52 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
+DOCUMENTATION = '''
+---
+module: tsadm_facts
+short_description: tsadm hosts facts
+description:
+  - tsadm hosts facts
+author: Jeremías Casteglione <jeremias@tincan.co.uk>
+'''
+
+EXAMPLES = '''
+- action: tsadm_facts
+'''
+
+import os.path
+
+#~ def modsAvailable(asbmod):
+    #~ mods = list()
+    #~ for fpath in glob.glob('/etc/apache2/mods-available/*.load'):
+        #~ mods.append(os.path.basename(fpath))
+    #~ if len(mods) <= 0:
+        #~ asbmod.fail_json(msg='could not get available mods')
+    #~ return [m[:len(m)-len(".load")] for m in sorted(mods)]
+
+def sshPubKey(asbmod):
+    fpath = os.path.join('/home', 'tsadm', '.ssh', 'id_rsa.pub')
+    pubKey = '__NO_PUB_KEY__'
+    if os.path.exists(fpath):
+        try:
+            fh = open(fpath, 'r')
+            pubKey = fh.readline().strip()
+            fh.close()
+        except:
+            return '__READ_ERROR__'
+    else:
+        return '__FILE_NOT_FOUND__'
+    return pubKey
+
+def main():
+    asbmod = AnsibleModule(argument_spec=dict())
+    asbmod.exit_json(
+        changed=False,
+        ansible_facts=dict(
+            tsadm_ssh_pub_key=sshPubKey(asbmod),
+        ),
+    )
+
+from ansible.module_utils.basic import *
+if __name__ == '__main__':
+    main()

@@ -1,3 +1,10 @@
 ---
+# get all servers facts
+- hosts: all
+  gather_facts: playbook_gather_facts
+  tasks:
+    - name: tsadm facts
+      action: tsadm_facts
+
 - include: master-server.yml
 - include: slave-servers.yml

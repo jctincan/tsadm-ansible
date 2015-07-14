@@ -4,5 +4,5 @@
 {% endfor %}
 {% endfor %}
 {% for host_id in tsadm_site_auth[item].auth_hosts %}
-{{tsadmdb_host[host_id].ssh_key}}
+{{hostvars[tsadmdb_host[host_id].fqdn]['tsadm_ssh_pub_key']}}
 {% endfor %}

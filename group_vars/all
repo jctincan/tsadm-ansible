@@ -1,14 +1,16 @@
 ---
-tsadm_master_domain: tsadm.tincan.co.uk
-tsadm_user: tsadm
+tsadm_master_domain: tsadm-master
+tsadm_user: tsadmdev
 tsadm_group: jrms
 www_group: jrms
-tsadm_homedir: /home/tsadm
-tsadm_etcdir: /etc/opt/tsadm
-site_repo_basedir: /srv/git/tsadm/sites
-site_repo_post_receive_hook: /opt/tsadm/libexec/git/post-receive
 repo_user_groups: authcmds
 playbook_gather_facts: false
+
+tsadm_homedir: /home/tsadmdev
+tsadm_etcdir: /etc/opt/tsadmdev
+
+site_repo_basedir: /srv/git/tsadmdev/sites
+site_repo_post_receive_hook: /opt/tsadmdev/libexec/git/post-receive
 
 debian_packages_purge: []
 

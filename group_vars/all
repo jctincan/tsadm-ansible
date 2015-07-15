@@ -13,8 +13,6 @@ playbook_gather_facts: false
 debian_packages_purge: []
 
 debian_packages_install:
-  - at
   - git
   - python-mysqldb
   - python3
-  - xinetd

@@ -5,6 +5,8 @@
   tasks:
     - name: tsadm facts
       action: tsadm_facts
+      tags:
+        - tsadm-site
 
 - include: master-server.yml
 - include: slave-servers.yml

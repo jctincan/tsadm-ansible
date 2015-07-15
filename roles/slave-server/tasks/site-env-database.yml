@@ -15,7 +15,7 @@
 - name: site env db user
   mysql_user:
     name={{tsadmdb_siteenv[item].site_name}}
-    password="{{ lookup('password', 'private/'+inventory_hostname+'.'+tsadmdb_siteenv[item].site_name+'.my.passwd chars=ascii_letters,digits') }}"
+    password="{{ lookup('password', privdir+'/'+inventory_hostname+'.'+tsadmdb_siteenv[item].site_name+'.my.passwd chars=ascii_letters,digits') }}"
     priv={{tsadmdb_siteenv[item].site_name}}%db.*:ALL
     state=present
   with_items:

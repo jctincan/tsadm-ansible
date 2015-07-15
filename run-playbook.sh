@@ -1,2 +1,4 @@
 #!/bin/bash
-exec ansible-playbook -s -i invlist.py $@
+set -x
+privdir=`realpath $(dirname $0)/private`
+exec ansible-playbook -s -T 15 -i invlist.py -e "privdir=${privdir}" $@

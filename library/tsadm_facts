@@ -25,7 +25,7 @@ import os.path
     #~ return [m[:len(m)-len(".load")] for m in sorted(mods)]
 
 def sshPubKey(asbmod):
-    fpath = os.path.join('/home', 'tsadm', '.ssh', 'id_rsa.pub')
+    fpath = os.path.join('/home', 'tsadmdev', '.ssh', 'id_rsa.pub')
     pubKey = '__NO_PUB_KEY__'
     if os.path.exists(fpath):
         try:

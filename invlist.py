@@ -7,13 +7,6 @@ import os.path
 
 from urllib2 import urlopen
 
-run_mode = ''
-if sys.argv[0].endswith('test.py'):
-    run_mode = 'test'
-elif sys.argv[0].endswith('dev.py'):
-    run_mode = 'dev'
-print(run_mode)
-
 if len(sys.argv) >= 2 and sys.argv[1] == '--list':
     try:
         print(urlopen(INVLIST_URL, timeout=15).read())

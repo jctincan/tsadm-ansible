@@ -1,4 +1,6 @@
 ---
+slave_xinetd_jobq_path: /etc/xinetd.d/tsadmdev-jobq
+
 slave_pkg_install:
   - at
   - xinetd

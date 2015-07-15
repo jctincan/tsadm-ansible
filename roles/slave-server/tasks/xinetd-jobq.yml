@@ -1,0 +1,7 @@
+---
+- name: slave xinetd jobq config
+  file:
+    path={{slave_xinetd_jobq_path}}
+    force=yes
+    src={{tsadm_xinetd_jobq_path}}
+    state=link

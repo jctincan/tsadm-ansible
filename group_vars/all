@@ -8,6 +8,7 @@ playbook_gather_facts: false
 
 tsadm_homedir: /home/tsadmdev
 tsadm_etcdir: /etc/opt/tsadmdev
+tsadm_xinetd_jobq_path: /opt/tsadmdev/webapp/etc/xinetd/jobqd.conf
 
 site_repo_basedir: /srv/git/tsadmdev/sites
 site_repo_post_receive_hook: /opt/tsadmdev/libexec/git/post-receive

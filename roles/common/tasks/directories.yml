@@ -1,8 +1,15 @@
 ---
-# etc dir
-- name: tsadm etc dir
-  sudo: true
+- name: tsadm etcdir
   file: path={{tsadm_etcdir}}
     state=directory
   tags:
     - tsadm-dirs
+    - tsadm-codebase
+
+
+- name: tsadm  basedir
+  file: path={{tsadm_basedir}}
+    state=directory
+  tags:
+    - tsadm-dirs
+    - tsadm-codebase

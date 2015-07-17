@@ -1,7 +1,11 @@
 ---
-- name: slave xinetd jobq config
+- name: xinetd jobq config
   file:
-    path={{slave_xinetd_jobq_path}}
+    path={{xinetd_jobqd_conf}}
     force=yes
-    src={{tsadm_xinetd_jobq_path}}
+    src={{tsadm_etcdir}}/xinetd/jobqd.conf
     state=link
+  notify:
+    - service xinetd restart
+  tags:
+    - tsadm-codebase

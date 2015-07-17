@@ -6,12 +6,15 @@ www_group: jrms
 repo_user_groups: authcmds
 playbook_gather_facts: false
 
+tsadm_basedir: /opt/tsadmdev
 tsadm_homedir: /home/tsadmdev
 tsadm_etcdir: /etc/opt/tsadmdev
-tsadm_xinetd_jobq_path: /opt/tsadmdev/webapp/etc/xinetd/jobqd.conf
+tsadm_webapp_codebase: /opt/tsadmdev/webapp
 
 site_repo_basedir: /srv/git/tsadmdev/sites
-site_repo_post_receive_hook: /opt/tsadmdev/libexec/git/post-receive
+site_repo_post_receive_hook: /opt/tsadmdev/webapp/libexec/git/post-receive
+
+xinetd_jobqd_conf: /etc/xinetd.d/tsadmdev-jobqd
 
 debian_packages_purge: []
 

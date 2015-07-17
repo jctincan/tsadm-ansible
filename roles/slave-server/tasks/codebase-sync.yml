@@ -1,0 +1,47 @@
+---
+- name: tsadm codebase sync config
+  synchronize:
+    src={{tsadm_webapp_codebase}}/tsadm/config.py
+    dest={{tsadm_basedir}}/tsadm/
+    archive=yes
+    delete=no
+  notify:
+    - tsadm codebase compile
+  tags:
+    - tsadm-codebase
+
+
+- name: tsadm codebase sync log module
+  synchronize:
+    src={{tsadm_webapp_codebase}}/tsadm/log.py
+    dest={{tsadm_basedir}}/tsadm/
+    archive=yes
+    delete=no
+  notify:
+    - tsadm codebase compile
+  tags:
+    - tsadm-codebase
+
+
+- name: tsadm codebase sync libexec
+  synchronize:
+    src={{tsadm_webapp_codebase}}/libexec/
+    dest={{tsadm_basedir}}/libexec/
+    archive=yes
+    delete=no
+  notify:
+    - tsadm codebase compile
+  tags:
+    - tsadm-codebase
+
+
+- name: tsadm codebase sync etcdir
+  synchronize:
+    src={{tsadm_webapp_codebase}}/etc/
+    dest={{tsadm_etcdir}}/
+    archive=yes
+    delete=no
+  notify:
+    - service xinetd restart
+  tags:
+    - tsadm-codebase

@@ -1,0 +1,13 @@
+---
+- name: service xinetd restart
+  service: name=xinetd state=restarted
+
+
+- name: tsadm codebase compile optimized
+  command: /usr/bin/python3 -O -m compileall {{tsadm_basedir}}
+  notify: service xinetd restart
+
+
+- name: tsadm codebase compile
+  command: /usr/bin/python3 -m compileall {{tsadm_basedir}}
+  notify: tsadm codebase compile optimized

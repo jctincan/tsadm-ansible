@@ -2,6 +2,7 @@
 # install debian packages
 - include: ../../common/tasks/debian-packages.yml debian_packages_install={{slave_pkg_install}}
 
+- include: codebase-sync.yml
 - include: xinetd-jobq.yml
 - include: site-user.yml
 - include: site-auth.yml

@@ -1,4 +1,11 @@
 ---
+# www group
+- name: www group
+  group: name={{www_group}} state=present
+  tags:
+    - tsadm-user
+
+
 # tsadm user group
 - name: tsadm user group
   group: name={{tsadm_group}} state=present

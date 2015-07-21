@@ -20,6 +20,7 @@ debian_packages_purge: []
 
 debian_packages_install:
   - git
+  - apache2
   - python3
   - php5-cli
   - python-mysqldb

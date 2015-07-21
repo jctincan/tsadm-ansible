@@ -1,8 +1,8 @@
 ---
 tsadm_master_domain: tsadm-master
 tsadm_user: tsadmdev
-tsadm_group: jrms
-www_group: jrms
+tsadm_group: tsadmdev
+www_group: nobody
 repo_user_groups: authcmds
 playbook_gather_facts: false
 

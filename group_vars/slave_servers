@@ -2,5 +2,4 @@
 slave_pkg_install:
   - at
   - xinetd
-  - php5-cli
   - mysql-server

@@ -60,7 +60,7 @@
 # tsadm user ssh keygen
 - name: tsadm user ssh keygen
   command:
-    /usr/bin/ssh-keygen -q -t rsa -f {{tsadm_homedir}}/.ssh/id_rsa -N '' -C 'tsadm@{{inventory_hostname}}'
+    /usr/bin/ssh-keygen -q -t rsa -f {{tsadm_homedir}}/.ssh/id_rsa -N '' -C '{{tsadm_user}}@{{inventory_hostname}}'
     creates={{tsadm_homedir}}/.ssh/id_rsa
   tags:
     - tsadm-user
@@ -72,7 +72,7 @@
     path={{tsadm_homedir}}/.ssh/id_rsa
     owner={{tsadm_user}}
     group={{tsadm_group}}
-    mode=0640
+    mode=0600
     state=file
   tags:
     - tsadm-user

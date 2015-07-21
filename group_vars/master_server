@@ -1,0 +1,6 @@
+---
+master_pkg_install:
+  - mysql-server
+  - python3-lxml
+  - python3-django
+  - python3-mysql.connector

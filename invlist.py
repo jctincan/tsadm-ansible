@@ -1,6 +1,6 @@
 #!/usr/bin/env python2
 
-INVLIST_URL = 'http://dev.tsadm.local:8000/asb/inv/lst/'
+INVLIST_URL = 'http://master.tsadm.local:8000/asb/inv/lst/'
 
 import sys
 import os.path

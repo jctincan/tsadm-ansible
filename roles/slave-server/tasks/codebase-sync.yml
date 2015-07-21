@@ -1,4 +1,14 @@
 ---
+- name: tsadm codebase dir perms
+  file:
+    path={{tsadm_basedir}}
+    state=directory
+    owner={{tsadm_user}}
+    group={{tsadm_group}}
+  tags:
+    - tsadm-codebase
+
+
 - name: tsadm codebase sync config
   synchronize:
     src={{tsadm_webapp_codebase}}/tsadm/config.py
@@ -19,6 +29,16 @@
     delete=no
   notify:
     - tsadm codebase compile
+  tags:
+    - tsadm-codebase
+
+
+- name: tsadm codebase modules dir perms
+  file:
+    path={{tsadm_basedir}}/tsadm
+    state=directory
+    owner={{tsadm_user}}
+    group={{tsadm_group}}
   tags:
     - tsadm-codebase
 

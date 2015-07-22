@@ -1,6 +1,0 @@
----
-- hosts: slave_servers
-  gather_facts: playbook_gather_facts
-  roles:
-    - common
-    - slave-server

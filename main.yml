@@ -8,5 +8,18 @@
       tags:
         - tsadm-site
 
-- include: master-server.yml
-- include: slave-servers.yml
+
+# master server
+- hosts: master_server
+  gather_facts: playbook_gather_facts
+  roles:
+    - common
+    - master-server
+
+
+# slave servers
+- hosts: slave_servers
+  gather_facts: playbook_gather_facts
+  roles:
+    - common
+    - slave-server

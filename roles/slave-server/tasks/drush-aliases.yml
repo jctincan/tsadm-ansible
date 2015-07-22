@@ -35,7 +35,6 @@
 
 # tsadm user drush dir
 - name: tsadm user drush dir
-  sudo: true
   file:
     path={{tsadm_homedir}}/.drush
     state=directory
@@ -49,7 +48,6 @@
 
 # tsadm user drush aliases
 - name: tsadm user drush aliases
-  sudo: true
   template:
     src=site.aliases.drushrc.php
     dest={{tsadm_homedir}}/.drush/{{tsadmdb_site[item].name}}.aliases.drushrc.php

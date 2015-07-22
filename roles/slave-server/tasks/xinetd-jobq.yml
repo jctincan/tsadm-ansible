@@ -1,5 +1,6 @@
 ---
 - name: xinetd jobq config
+  sudo: true
   file:
     path={{xinetd_jobqd_conf}}
     force=yes

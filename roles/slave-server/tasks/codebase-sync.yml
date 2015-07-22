@@ -1,5 +1,6 @@
 ---
 - name: tsadm codebase dir perms
+  sudo: true
   file:
     path={{tsadm_basedir}}
     state=directory

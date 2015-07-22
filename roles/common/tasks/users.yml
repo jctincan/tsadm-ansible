@@ -1,6 +1,7 @@
 ---
 # www group
 - name: www group
+  sudo: true
   group: name={{www_group}} state=present
   tags:
     - tsadm-user
@@ -8,6 +9,7 @@
 
 # tsadm user group
 - name: tsadm user group
+  sudo: true
   group: name={{tsadm_group}} state=present
   tags:
     - tsadm-user
@@ -15,9 +17,10 @@
 
 # tsadm user
 - name: tsadm user
+  sudo: true
   user:
     name={{tsadm_user}}
-    comment=tsadm
+    comment={{tsadm_user}}
     group={{tsadm_group}}
     home={{tsadm_homedir}}
     shell=/bin/bash
@@ -31,7 +34,6 @@
   copy:
     src=tsadm.home/
     dest={{tsadm_homedir}}
-    mode=0640
     owner={{tsadm_user}}
     group={{tsadm_group}}
     backup=yes

@@ -1,7 +1,6 @@
 ---
 # tsadm drushrc dir
 - name: tsadm drushrc dir
-  sudo: true
   file: path={{tsadm_homedir}}/drushrc
         state=directory
   tags:
@@ -11,7 +10,6 @@
 
 # site drush aliases
 - name: site drush aliases
-  sudo: true
   template:
     src=site.aliases.drushrc.php
     dest={{tsadm_homedir}}/drushrc/{{tsadmdb_site[item].name}}.aliases.drushrc.php

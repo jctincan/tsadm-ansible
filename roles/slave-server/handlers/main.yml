@@ -1,5 +1,6 @@
 ---
 - name: service xinetd restart
+  sudo: true
   service: name=xinetd state=restarted
 
 

@@ -8,7 +8,7 @@ playbook_gather_facts: false
 
 tsadm_basedir: /opt/tsadmdev
 tsadm_homedir: /home/tsadmdev
-tsadm_etcdir: /etc/opt/tsadmdev
+tsadm_etcdir: /home/tsadmdev/config
 tsadm_webapp_codebase: /opt/tsadmdev/webapp
 
 site_repo_basedir: /srv/git/tsadmdev/sites

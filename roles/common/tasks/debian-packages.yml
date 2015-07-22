@@ -1,6 +1,7 @@
 ---
 # install packages
 - name: debian packages install
+  sudo: true
   apt:
     name={{item}}
     state=present
@@ -13,6 +14,7 @@
 
 # remove, and purge, packages
 - name: debian packages purge
+  sudo: true
   apt:
     name={{item.name}}
     state=absent

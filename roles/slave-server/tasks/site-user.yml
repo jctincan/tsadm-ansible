@@ -29,6 +29,20 @@
     tsadm-site
 
 
+# site user homedir data
+- name: site user homedir data
+  sudo: true
+  copy:
+    src=site-user.home/
+    dest={{tsadm_homedir}}/sites/{{tsadmdb_site[item].name}}
+    owner={{tsadmdb_site[item].name}}
+    backup=yes
+    force=yes
+  with_items:
+    tsadm_slave_sites
+  tags: tsadm-site
+
+
 # site user home dir perms
 - name: site user homedir perms
   sudo: true
@@ -38,21 +52,6 @@
     owner={{tsadmdb_site[item].name}}
     group={{www_group}}
     mode=0751
-  with_items:
-    tsadm_slave_sites
-  tags: tsadm-site
-
-
-# site user homedir data
-- name: site user homedir data
-  sudo: true
-  copy:
-    src=site-user.home/
-    dest={{tsadm_homedir}}/sites/{{tsadmdb_site[item].name}}
-    mode=0640
-    owner={{tsadmdb_site[item].name}}
-    backup=yes
-    force=yes
   with_items:
     tsadm_slave_sites
   tags: tsadm-site

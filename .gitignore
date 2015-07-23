@@ -1,2 +1,4 @@
 *.swp
+*.patch
 private/*
+.asbot.pem

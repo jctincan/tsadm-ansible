@@ -1,7 +1,7 @@
 ---
 # tsadm drushrc dir
 - name: tsadm drushrc dir
-  file: path={{tsadm_homedir}}/drushrc
+  file: path={{tsadm_homedir}}/.drush
         state=directory
   tags:
     - tsadm-site
@@ -12,7 +12,8 @@
 - name: site drush aliases
   template:
     src=site.aliases.drushrc.php
-    dest={{tsadm_homedir}}/drushrc/{{tsadmdb_site[item].name}}.aliases.drushrc.php
+    dest={{tsadm_homedir}}/.drush/{{tsadmdb_site[item].name}}.aliases.drushrc.php
+    mode=0640
     validate='php -l %s'
   with_items:
     tsadmdb_site.keys()
@@ -24,8 +25,12 @@
 # site develoloer drush homedir
 - name: site developer drush homedir
   sudo: true
-  file: path=/home/{{tsadmdb_user[item].name}}/.drush
-        state=directory
+  file:
+    path=/home/{{tsadmdb_user[item].name}}/.drush
+    state=directory
+    owner={{tsadmdb_user[item].name}}
+    group={{tsadmdb_user[item].name}}
+    mode=0750
   with_items:
     tsadm_developers
   tags:
@@ -36,10 +41,13 @@
 # site drush aliases for developer
 - name: site drush aliases for developer
   sudo: true
-  file:
-    src={{tsadm_homedir}}/drushrc/{{tsadmdb_site[item.0.site_id].name}}.aliases.drushrc.php
-    path=/home/{{tsadmdb_user[item.1].name}}/.drush/{{tsadmdb_site[item.0.site_id].name}}.aliases.drushrc.php
-    state=link
+  template:
+    src=developer-site.aliases.drushrc.php
+    dest=/home/{{tsadmdb_user[item.1].name}}/.drush/{{tsadmdb_site[item.0.site_id].name}}.aliases.drushrc.php
+    owner={{tsadmdb_user[item.1].name}}
+    group={{tsadmdb_user[item.1].name}}
+    mode=0640
+    validate='php -l %s'
   with_subelements:
     - tsadm_site_auth
     - auth_users

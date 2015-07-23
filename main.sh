@@ -1,6 +1,7 @@
 #!/bin/bash
-set -x
-privdir=`realpath $(dirname $0)/private`
+set -ex
+privdir=`realpath ~/ansible.private`
+mkdir -vp ${privdir}
 test -d ${privdir} && test -w ${privdir} || {
     echo "${privdir}: dir not found or not writable" >&2
     exit 1

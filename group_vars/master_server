@@ -4,3 +4,6 @@ master_pkg_install:
   - python3-lxml
   - python3-django
   - python3-mysql.connector
+  - uwsgi
+  - uwsgi-plugin-python3
+  - libapache2-mod-uwsgi

@@ -16,9 +16,8 @@
 - name: site user
   sudo: true
   user:
-    uid={{item}}
     name={{tsadmdb_site[item].name}}
-    comment='tsadm {{tsadmdb_site[item].name}}'
+    comment='{{tsadm_user}} {{tsadmdb_site[item].name}}'
     group={{www_group}}
     home={{tsadm_homedir}}/sites/{{tsadmdb_site[item].name}}
     shell=/bin/bash

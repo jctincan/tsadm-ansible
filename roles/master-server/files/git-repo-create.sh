@@ -1,6 +1,6 @@
 #!/bin/bash
 PATH=/usr/bin:/bin
-repo_name=${1:?'repo name?'}
+repo_user=${1:?'repo user?'}
 repo_path=${2:?'repo path?'}
 www_group=${3:?'webserver os group?'}
 
@@ -15,9 +15,9 @@ old_umask=`umask`
 umask 0027
 
 rsync -ax /opt/tsadmdev/site-init-tmpl.git/ ${repo_path}/
-echo "${repo_name} site" >${repo_path}/description
+echo "tsadmdev ${repo_user} site" >${repo_path}/description
 
-chown -R ${repo_name}:${www_group} ${repo_path}
+chown -R ${repo_user}:${www_group} ${repo_path}
 umask ${old_umask}
 
 exit 0

@@ -1,5 +1,6 @@
 #!/bin/bash
 set -ex
+umask 0027
 privdir=`realpath ~/ansible.private`
 mkdir -vp ${privdir}
 test -d ${privdir} && test -w ${privdir} || {

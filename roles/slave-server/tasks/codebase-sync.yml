@@ -56,13 +56,25 @@
     - tsadm-codebase
 
 
-- name: tsadm codebase sync etcdir
+- name: tsadm codebase etcdir perms
   sudo: true
+  file:
+    path={{tsadm_etcdir}}
+    state=directory
+    owner={{tsadm_user}}
+    group={{tsadm_group}}
+    mode=0751
+  tags:
+    - tsadm-codebase
+
+
+- name: tsadm codebase sync etcdir
   synchronize:
     src={{tsadm_webapp_codebase}}/etc/
     dest={{tsadm_etcdir}}/
     archive=yes
     delete=no
+    perms=no
   notify:
     - service xinetd restart
   tags:

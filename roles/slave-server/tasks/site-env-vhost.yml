@@ -4,6 +4,7 @@
   sudo: true
   file: path={{tsadm_etcdir}}/apache.d
     state=directory
+    owner={{tsadm_user}}
     group={{www_group}}
     mode=0750
   tags:
@@ -17,6 +18,7 @@
     src=site-env-apache.conf
     dest={{tsadm_etcdir}}/apache.d/{{tsadmdb_siteenv[item].site_id}}-{{tsadmdb_siteenv[item].site_name}}.{{tsadmdb_siteenv[item].name}}.conf
     mode=0640
+    owner={{tsadm_user}}
     group={{www_group}}
   with_items:
     tsadm_slave_siteenvs

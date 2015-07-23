@@ -57,6 +57,7 @@
 
 
 - name: tsadm codebase sync etcdir
+  sudo: true
   synchronize:
     src={{tsadm_webapp_codebase}}/etc/
     dest={{tsadm_etcdir}}/

@@ -1,5 +1,6 @@
 ---
 - name: tsadm etcdir
+  sudo: true
   file: path={{tsadm_etcdir}}
     state=directory
   tags:

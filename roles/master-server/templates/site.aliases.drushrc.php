@@ -5,9 +5,9 @@
 {% if senv.site_id == tsadmdb_site[item].id %}
 $aliases['{{senv.name}}'] = array(
     'root' => '{{tsadm_homedir}}/sites/{{tsadmdb_site[item].name}}/{{senv.name}}/docroot',
-    'uri' => '{{tsadmdb_site[item].name}}{{senv.name}}.tsadm.tincan.co.uk',
+    'uri' => '{{tsadmdb_site[item].name}}{{senv.name}}.{{siteenv_domain_suffix}}',
     'remote-host' => '{{tsadmdb_host[senv.host_id].fqdn}}',
-    'remote-user' => '{{tsadmdb_site[item].name}}'
+    'remote-user' => '{{tsadmdb_site[item].slug}}'
 );
 
 {% endif %}

@@ -23,9 +23,9 @@
 - name: site repo user
   sudo: true
   user:
-    name={{tsadmdb_site[item].name}}
+    name={{tsadmdb_site[item].slug}}
     groups={{repo_user_groups}}
-    comment='tsadm repo {{tsadmdb_site[item].name}}'
+    comment='{{tsadm_user}} {{tsadmdb_site[item].name}} repo'
     home={{site_repo_basedir}}/{{tsadmdb_site[item].name}}
     shell=/usr/bin/git-shell
     state=present
@@ -41,8 +41,8 @@
   file:
     path={{site_repo_basedir}}/{{tsadmdb_site[item].name}}
     state=directory
-    owner={{tsadmdb_site[item].name}}
-    group={{tsadmdb_site[item].name}}
+    owner={{tsadmdb_site[item].slug}}
+    group={{tsadmdb_site[item].slug}}
     mode=0751
   with_items:
     tsadmdb_site.keys()
@@ -54,7 +54,7 @@
 # create git repo
 - name: site create git repo
   sudo: true
-  script: git-repo-create.sh {{tsadmdb_site[item].name}} {{site_repo_basedir}}/{{tsadmdb_site[item].name}}/{{tsadmdb_site[item].name}}.git {{www_group}} creates={{site_repo_basedir}}/{{tsadmdb_site[item].name}}/{{tsadmdb_site[item].name}}.git/description
+  script: git-repo-create.sh {{tsadmdb_site[item].slug}} {{site_repo_basedir}}/{{tsadmdb_site[item].name}}/{{tsadmdb_site[item].name}}.git {{www_group}} creates={{site_repo_basedir}}/{{tsadmdb_site[item].name}}/{{tsadmdb_site[item].name}}.git/description
   with_items:
     tsadmdb_site.keys()
   tags:
@@ -65,7 +65,8 @@
 # git post-receive hook
 - name: site repo post-receive hook
   sudo: true
-  file: src={{site_repo_post_receive_hook}}
+  file:
+    src={{site_repo_post_receive_hook}}
     path={{site_repo_basedir}}/{{tsadmdb_site[item].name}}/{{tsadmdb_site[item].name}}.git/hooks/post-receive
     state=link
     force=yes

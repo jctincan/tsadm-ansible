@@ -5,7 +5,7 @@
   file:
     path={{tsadm_homedir}}/sites/{{tsadmdb_site[item].name}}/.ssh
     state=directory
-    owner={{tsadmdb_site[item].name}}
+    owner={{tsadmdb_site[item].slug}}
     group={{www_group}}
     mode=0750
   with_items:
@@ -22,7 +22,7 @@
   template:
     src=site-ssh-authorized_keys
     dest={{tsadm_homedir}}/sites/{{tsadmdb_site[item].name}}/.ssh/authorized_keys
-    owner={{tsadmdb_site[item].name}}
+    owner={{tsadmdb_site[item].slug}}
     group={{www_group}}
     mode=0600
     backup=yes

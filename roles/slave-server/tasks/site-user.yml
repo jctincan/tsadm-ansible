@@ -16,8 +16,8 @@
 - name: site user
   sudo: true
   user:
-    name={{tsadmdb_site[item].name}}
-    comment='{{tsadm_user}} {{tsadmdb_site[item].name}}'
+    name={{tsadmdb_site[item].slug}}
+    comment='{{tsadm_user}} {{tsadmdb_site[item].name}} site'
     group={{www_group}}
     home={{tsadm_homedir}}/sites/{{tsadmdb_site[item].name}}
     shell=/bin/bash
@@ -34,7 +34,8 @@
   copy:
     src=site-user.home/
     dest={{tsadm_homedir}}/sites/{{tsadmdb_site[item].name}}
-    owner={{tsadmdb_site[item].name}}
+    owner={{tsadmdb_site[item].slug}}
+    group={{www_group}}
     backup=yes
     force=yes
   with_items:
@@ -48,7 +49,7 @@
   file:
     path={{tsadm_homedir}}/sites/{{tsadmdb_site[item].name}}
     state=directory
-    owner={{tsadmdb_site[item].name}}
+    owner={{tsadmdb_site[item].slug}}
     group={{www_group}}
     mode=0751
   with_items:

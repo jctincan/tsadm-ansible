@@ -5,7 +5,7 @@
 # *** {{tsadmdb_site[item].name}}.{{tsadm_env.name}}
 $aliases['{{tsadm_env.name}}'] = array(
     'root' => '{{tsadm_homedir}}/sites/{{tsadmdb_site[item].name}}/{{tsadm_env.name}}/docroot',
-    'uri' => '{{tsadmdb_site[item].name}}{{tsadm_env.name}}.{{tsadm_master_domain}}',
+    'uri' => '{{tsadmdb_site[item].name}}{{tsadm_env.name}}.{{siteenv_domain_suffix}}',
 {% if tsadmdb_host[tsadm_env.host_id].fqdn != inventory_hostname %}
     'remote-host' => '{{tsadmdb_host[tsadm_env.host_id].fqdn}}',
     'remote-user' => '{{tsadm_user}}',

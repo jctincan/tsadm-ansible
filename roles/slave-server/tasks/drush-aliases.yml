@@ -6,7 +6,7 @@
     path={{tsadm_homedir}}/sites/{{tsadmdb_site[item].name}}/.drush
     state=directory
     mode=0750
-    owner={{tsadmdb_site[item].name}}
+    owner={{tsadmdb_site[item].slug}}
     group={{www_group}}
   with_items:
     tsadm_slave_sites
@@ -22,7 +22,7 @@
     src=site.aliases.drushrc.php
     dest={{tsadm_homedir}}/sites/{{tsadmdb_site[item].name}}/.drush/{{tsadmdb_site[item].name}}.aliases.drushrc.php
     mode=0640
-    owner={{tsadmdb_site[item].name}}
+    owner={{tsadmdb_site[item].slug}}
     group={{www_group}}
     validate='php -l %s'
     backup=yes

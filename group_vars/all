@@ -1,5 +1,5 @@
 ---
-tsadm_master_domain: tsadm-master
+tsadm_master_domain: master.tsadm.local
 tsadm_user: tsadmdev
 tsadm_group: tsadmdev
 www_group: nobody
@@ -13,6 +13,8 @@ tsadm_webapp_codebase: /opt/tsadmdev/webapp
 
 site_repo_basedir: /srv/git/tsadmdev/sites
 site_repo_post_receive_hook: /opt/tsadmdev/webapp/libexec/git/post-receive
+
+siteenv_domain_suffix: tsadm.local
 
 xinetd_jobqd_conf: /etc/xinetd.d/tsadmdev-jobqd
 

@@ -26,10 +26,10 @@
 - name: site developer drush homedir
   sudo: true
   file:
-    path=/home/{{tsadmdb_user[item].name}}/.drush
+    path=/home/{{tsadmdb_user[item].slug}}/.drush
     state=directory
-    owner={{tsadmdb_user[item].name}}
-    group={{tsadmdb_user[item].name}}
+    owner={{tsadmdb_user[item].slug}}
+    group={{tsadmdb_user[item].slug}}
     mode=0750
   with_items:
     tsadm_developers
@@ -43,9 +43,9 @@
   sudo: true
   template:
     src=developer-site.aliases.drushrc.php
-    dest=/home/{{tsadmdb_user[item.1].name}}/.drush/{{tsadmdb_site[item.0.site_id].name}}.aliases.drushrc.php
-    owner={{tsadmdb_user[item.1].name}}
-    group={{tsadmdb_user[item.1].name}}
+    dest=/home/{{tsadmdb_user[item.1].slug}}/.drush/{{tsadmdb_site[item.0.site_id].name}}.aliases.drushrc.php
+    owner={{tsadmdb_user[item.1].slug}}
+    group={{tsadmdb_user[item.1].slug}}
     mode=0640
     validate='php -l %s'
   with_subelements:

@@ -6,7 +6,7 @@
     path={{tsadm_homedir}}/sites
     state=directory
     owner={{tsadm_user}}
-    group={{www_group}}
+    group={{hostvars[inventory_hostname].tsadm_apache_runcfg.group.name}}
     mode=0751
   tags:
     tsadm-site
@@ -18,7 +18,7 @@
   user:
     name={{tsadmdb_site[item].slug}}
     comment='{{tsadm_user}} {{tsadmdb_site[item].name}} site'
-    group={{www_group}}
+    group={{hostvars[inventory_hostname].tsadm_apache_runcfg.group.name}}
     home={{tsadm_homedir}}/sites/{{tsadmdb_site[item].name}}
     shell=/bin/bash
     state=present
@@ -35,7 +35,7 @@
     src=site-user.home/
     dest={{tsadm_homedir}}/sites/{{tsadmdb_site[item].name}}
     owner={{tsadmdb_site[item].slug}}
-    group={{www_group}}
+    group={{hostvars[inventory_hostname].tsadm_apache_runcfg.group.name}}
     backup=yes
     force=yes
   with_items:
@@ -50,7 +50,7 @@
     path={{tsadm_homedir}}/sites/{{tsadmdb_site[item].name}}
     state=directory
     owner={{tsadmdb_site[item].slug}}
-    group={{www_group}}
+    group={{hostvars[inventory_hostname].tsadm_apache_runcfg.group.name}}
     mode=0751
   with_items:
     tsadm_slave_sites

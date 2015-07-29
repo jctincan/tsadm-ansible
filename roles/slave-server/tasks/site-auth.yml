@@ -6,7 +6,7 @@
     path={{tsadm_homedir}}/sites/{{tsadmdb_site[item].name}}/.ssh
     state=directory
     owner={{tsadmdb_site[item].slug}}
-    group={{www_group}}
+    group={{hostvars[inventory_hostname].tsadm_apache_runcfg.group.name}}
     mode=0750
   with_items:
     tsadm_slave_sites
@@ -23,7 +23,7 @@
     src=site-ssh-authorized_keys
     dest={{tsadm_homedir}}/sites/{{tsadmdb_site[item].name}}/.ssh/authorized_keys
     owner={{tsadmdb_site[item].slug}}
-    group={{www_group}}
+    group={{hostvars[inventory_hostname].tsadm_apache_runcfg.group.name}}
     mode=0600
     backup=yes
   with_items:

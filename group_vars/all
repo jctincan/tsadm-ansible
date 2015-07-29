@@ -2,7 +2,6 @@
 tsadm_master_domain: master.tsadm.local
 tsadm_user: tsadmdev
 tsadm_group: tsadmdev
-www_group: nobody
 repo_user_groups: authcmds
 
 tsadm_basedir: /opt/tsadmdev

@@ -2,7 +2,7 @@
 # www group
 - name: www group
   sudo: true
-  group: name={{www_group}} state=present
+  group: name={{hostvars[inventory_hostname].tsadm_apache_runcfg.group.name}} state=present
   tags:
     - tsadm-user
 

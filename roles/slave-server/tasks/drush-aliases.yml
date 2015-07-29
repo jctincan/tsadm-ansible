@@ -7,7 +7,7 @@
     state=directory
     mode=0750
     owner={{tsadmdb_site[item].slug}}
-    group={{www_group}}
+    group={{hostvars[inventory_hostname].tsadm_apache_runcfg.group.name}}
   with_items:
     tsadm_slave_sites
   tags:
@@ -23,7 +23,7 @@
     dest={{tsadm_homedir}}/sites/{{tsadmdb_site[item].name}}/.drush/{{tsadmdb_site[item].name}}.aliases.drushrc.php
     mode=0640
     owner={{tsadmdb_site[item].slug}}
-    group={{www_group}}
+    group={{hostvars[inventory_hostname].tsadm_apache_runcfg.group.name}}
     validate='php -l %s'
     backup=yes
   with_items:

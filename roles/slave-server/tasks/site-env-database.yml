@@ -33,7 +33,7 @@
     dest={{tsadm_homedir}}/sites/{{tsadmdb_siteenv[item].site_name}}/.my.cnf
     mode=0640
     owner={{tsadm_user}}
-    group={{www_group}}
+    group={{hostvars[inventory_hostname].tsadm_apache_runcfg.group.name}}
   with_items:
     tsadm_slave_siteenvs
   tags:

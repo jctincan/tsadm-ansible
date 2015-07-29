@@ -17,6 +17,11 @@ site_repo_post_receive_hook: /opt/tsadmdev/webapp/libexec/git/post-receive
 siteenv_domain_suffix: tsadm.local
 
 xinetd_jobqd_conf: /etc/xinetd.d/tsadmdev-jobqd
+cronolog_bin: /usr/bin/cronolog
+
+drupal_server_admin_email: dp_admin@tsadm.local
+drupal_php_memory_limit: 128M
+drupal_expires_default: access plus 3 hours
 
 debian_packages_purge: []
 

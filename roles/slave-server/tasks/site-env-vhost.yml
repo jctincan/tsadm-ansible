@@ -1,4 +1,37 @@
 ---
+# robots disallow file
+- name: robots disallow file
+  copy: dest={{tsadm_etcdir}}/apache/robots-disallow.txt
+    src=robots-disallow.txt
+    mode=0640
+  notify:
+    - service apache2 restart
+  tags:
+    - env-vhost
+
+
+# drupal common live vhost
+- name: drupal common live vhost
+  template: dest={{tsadm_etcdir}}/apache/drupal-live-vhost.conf
+    src=drupal-live-vhost.conf
+    mode=0640
+  notify:
+    - service apache2 restart
+  tags:
+    - env-vhost
+
+
+# drupal common non-live vhost
+- name: drupal common non-live vhost
+  template: dest={{tsadm_etcdir}}/apache/drupal-vhost.conf
+    src=drupal-vhost.conf
+    mode=0640
+  notify:
+    - service apache2 restart
+  tags:
+    - env-vhost
+
+
 # env vhost file
 - name: site env vhost file
   sudo: true

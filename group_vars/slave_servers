@@ -2,5 +2,6 @@
 slave_pkg_install:
   - at
   - xinetd
+  - cronolog
   - mysql-server
   - libapache2-mod-php5

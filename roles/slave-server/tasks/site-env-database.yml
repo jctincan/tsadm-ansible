@@ -2,7 +2,7 @@
 # site env database
 - name: site env db
   mysql_db:
-    name={{tsadmdb_siteenv[item].site_name}}{{tsadmdb_siteenv[item].name}}db
+    name={{tsadmdb_siteenv[item].site_slug}}{{tsadmdb_siteenv[item].name}}db
     state=present
   with_items:
     tsadm_slave_siteenvs
@@ -14,9 +14,9 @@
 # site env database user
 - name: site env db user
   mysql_user:
-    name={{tsadmdb_siteenv[item].site_name}}
-    password="{{ lookup('password', privdir+'/'+inventory_hostname+'.'+tsadmdb_siteenv[item].site_name+'.my.passwd chars=ascii_letters,digits') }}"
-    priv={{tsadmdb_siteenv[item].site_name}}%db.*:ALL
+    name={{tsadmdb_siteenv[item].site_slug}}
+    password="{{ lookup('password', privdir+'/'+inventory_hostname+'.'+tsadmdb_siteenv[item].site_slug+'.my.passwd chars=ascii_letters,digits') }}"
+    priv={{tsadmdb_siteenv[item].site_slug}}%db.*:ALL
     state=present
   with_items:
     tsadm_slave_siteenvs
@@ -32,7 +32,7 @@
     src=site.my.cnf
     dest={{tsadm_homedir}}/sites/{{tsadmdb_siteenv[item].site_name}}/.my.cnf
     mode=0640
-    owner={{tsadm_user}}
+    owner={{tsadmdb_siteenv[item].site_slug}}
     group={{hostvars[inventory_hostname].tsadm_apache_runcfg.group.name}}
   with_items:
     tsadm_slave_siteenvs

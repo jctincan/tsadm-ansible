@@ -35,7 +35,7 @@
 # env vhost file
 - name: site env vhost file
   sudo: true
-  template: dest=/etc/apache2/sites-enabled/{{tsadmdb_siteenv[item].site_id}}-{{tsadmdb_siteenv[item].site_name}}{{tsadmdb_siteenv[item].name}}.conf
+  template: dest=/etc/apache2/sites-enabled/{{tsadmdb_siteenv[item].site_id}}-{{tsadmdb_siteenv[item].site_slug}}{{tsadmdb_siteenv[item].name}}.conf
     src=site-env-apache.conf
     mode=0640
   with_items:

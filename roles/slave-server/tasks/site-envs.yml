@@ -22,7 +22,7 @@
     env_basedir={{tsadm_homedir}}/sites/{{tsadmdb_siteenv[item].site_name}}/{{tsadmdb_siteenv[item].name}}
     owner={{tsadm_user}}
     group={{hostvars[inventory_hostname].tsadm_apache_runcfg.group.name}}
-    public_owner={{tsadmdb_siteenv[item].site_name}}
+    public_owner={{tsadmdb_siteenv[item].site_slug}}
     public_group={{hostvars[inventory_hostname].tsadm_apache_runcfg.group.name}}
     public_path_regex=r'.*/sites/.*/files($|/.*)'
   with_items:

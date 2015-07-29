@@ -1,1 +1,5 @@
-umask 0006
+# Ansible managed!
+
+umask 0027
+
+# Ansible managed!

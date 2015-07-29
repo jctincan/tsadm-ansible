@@ -3,3 +3,4 @@ slave_pkg_install:
   - at
   - xinetd
   - mysql-server
+  - libapache2-mod-php5

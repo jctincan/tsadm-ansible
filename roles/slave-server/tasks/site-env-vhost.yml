@@ -1,26 +1,13 @@
 ---
-# envs vhost dir
-- name: site env vhosts dir
-  sudo: true
-  file: path={{tsadm_etcdir}}/apache.d
-    state=directory
-    owner={{tsadm_user}}
-    group={{www_group}}
-    mode=0750
-  tags:
-    - env-vhost
-
-
 # env vhost file
 - name: site env vhost file
   sudo: true
-  template:
+  template: dest=/etc/apache2/sites-enabled/{{tsadmdb_siteenv[item].site_id}}-{{tsadmdb_siteenv[item].site_name}}{{tsadmdb_siteenv[item].name}}.conf
     src=site-env-apache.conf
-    dest={{tsadm_etcdir}}/apache.d/{{tsadmdb_siteenv[item].site_id}}-{{tsadmdb_siteenv[item].site_name}}.{{tsadmdb_siteenv[item].name}}.conf
     mode=0640
-    owner={{tsadm_user}}
-    group={{www_group}}
   with_items:
     tsadm_slave_siteenvs
+  notify:
+    - service apache2 restart
   tags:
     - env-vhost

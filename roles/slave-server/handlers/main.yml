@@ -12,3 +12,8 @@
 - name: tsadm codebase compile
   command: /usr/bin/python3 -m compileall {{tsadm_basedir}}
   notify: tsadm codebase compile optimized
+
+
+- name: service apache2 restart
+  sudo: true
+  service: name=apache2 state=restarted

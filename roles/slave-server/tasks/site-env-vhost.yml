@@ -1,11 +1,20 @@
 ---
 # robots disallow file
 - name: robots disallow file
-  copy: dest={{tsadm_etcdir}}/apache/robots-disallow.txt
+  sudo: true
+  copy: dest={{hostvars[inventory_hostname].tsadm_apache_runcfg.docroot}}/
     src=robots-disallow.txt
-    mode=0640
-  notify:
-    - service apache2 restart
+    mode=0644
+  tags:
+    - env-vhost
+
+
+# robots disallow readme
+- name: robots disallow readme
+  sudo: true
+  copy: dest={{hostvars[inventory_hostname].tsadm_apache_runcfg.docroot}}/
+    src=robots-disallow.txt.README
+    mode=0400
   tags:
     - env-vhost
 

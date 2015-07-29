@@ -8,6 +8,7 @@
       action: tsadm_facts
       tags:
         - tsadm-site
+        - env-vhost
 
 
 # master server

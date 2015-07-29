@@ -79,3 +79,14 @@
     - service xinetd restart
   tags:
     - tsadm-codebase
+
+
+- name: tsadm drupal.settings.php
+  sudo: true
+  template: dest={{tsadm_homedir}}/
+    src=drupal.settings.php
+    group={{hostvars[inventory_hostname].tsadm_apache_runcfg.group.name}}
+    mode=0640
+    validate='php -l %s'
+  tags:
+    - tsadm-codebase

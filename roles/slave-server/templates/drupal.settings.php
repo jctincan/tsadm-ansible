@@ -1,4 +1,6 @@
 <?php
+# {{ansible_managed}}
+
 $tsadm_site_name = '__NO_SITE_NAME__';
 $tsadm_site_env = '__NO_SITE_ENV__';
 $tsadm_dbname = '__NO_DBNAME__';
@@ -86,3 +88,5 @@ unset($tsadm_dbname);
 unset($tsadm_dbuser);
 unset($tsadm_dbpass);
 unset($tsadm_db_settings);
+
+# {{ansible_managed}}

@@ -1,9 +1,10 @@
 ---
 # get all servers facts
 - hosts: all
-  gather_facts: playbook_gather_facts
+  gather_facts: false
   tasks:
     - name: tsadm facts
+      sudo: true
       action: tsadm_facts
       tags:
         - tsadm-site
@@ -11,7 +12,7 @@
 
 # master server
 - hosts: master_server
-  gather_facts: playbook_gather_facts
+  gather_facts: false
   roles:
     - common
     - master-server
@@ -19,7 +20,7 @@
 
 # slave servers
 - hosts: slave_servers
-  gather_facts: playbook_gather_facts
+  gather_facts: false
   roles:
     - common
     - slave-server

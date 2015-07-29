@@ -14,15 +14,35 @@ EXAMPLES = '''
 - action: tsadm_facts
 '''
 
+
 import os.path
 
-#~ def modsAvailable(asbmod):
-    #~ mods = list()
-    #~ for fpath in glob.glob('/etc/apache2/mods-available/*.load'):
-        #~ mods.append(os.path.basename(fpath))
-    #~ if len(mods) <= 0:
-        #~ asbmod.fail_json(msg='could not get available mods')
-    #~ return [m[:len(m)-len(".load")] for m in sorted(mods)]
+
+def apacheRunCfg(asbmod):
+    apachectl = asbmod.get_bin_path('apachectl', required=True)
+    cmd = apachectl+' -t -D DUMP_RUN_CFG'
+    rc, stdout, stderr = asbmod.run_command(cmd, check_rc=True)
+    rtrn = dict()
+    for line in stdout.splitlines():
+        line = line.replace('\"', '')
+        if line.startswith('ServerRoot: '):
+            rtrn['root'] = line.split(' ')[1].strip()
+        elif line.startswith('Main DocumentRoot: '):
+            rtrn['docroot'] = line.split(' ')[2].strip()
+        elif line.startswith('Main ErrorLog: '):
+            rtrn['errorlog'] = line.split(' ')[2].strip()
+        elif line.startswith('User: '):
+            rtrn['user'] = dict(
+                name=line.split(' ')[1].strip().split('=')[1].replace('"', ''),
+                id=int(line.split(' ')[2].strip().split('=')[1]),
+            )
+        elif line.startswith('Group: '):
+            rtrn['group'] = dict(
+                name=line.split(' ')[1].strip().split('=')[1].replace('"', ''),
+                id=int(line.split(' ')[2].strip().split('=')[1]),
+            )
+    return rtrn
+
 
 def sshPubKey(asbmod):
     fpath = os.path.join('/home', 'tsadmdev', '.ssh', 'id_rsa.pub')
@@ -38,14 +58,17 @@ def sshPubKey(asbmod):
         return '__FILE_NOT_FOUND__'
     return pubKey
 
+
 def main():
     asbmod = AnsibleModule(argument_spec=dict())
     asbmod.exit_json(
         changed=False,
         ansible_facts=dict(
             tsadm_ssh_pub_key=sshPubKey(asbmod),
+            tsadm_apache_runcfg=apacheRunCfg(asbmod),
         ),
     )
+
 
 from ansible.module_utils.basic import *
 if __name__ == '__main__':

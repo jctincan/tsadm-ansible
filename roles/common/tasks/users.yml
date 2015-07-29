@@ -48,10 +48,11 @@
     path={{tsadm_homedir}}
     owner={{tsadm_user}}
     group={{tsadm_group}}
-    mode=0750
+    mode=0751
     state=directory
   tags:
     - tsadm-user
+    - env-vhost
 
 
 # tsadm user ssh dir

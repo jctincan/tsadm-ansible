@@ -24,6 +24,8 @@
     group={{hostvars[inventory_hostname].tsadm_apache_runcfg.group.name}}
     public_owner={{tsadmdb_siteenv[item].site_slug}}
     public_group={{hostvars[inventory_hostname].tsadm_apache_runcfg.group.name}}
+    public_dir_mode=2770
+    public_file_mode=0660
     public_path_regex=r'.*/sites/.*/files($|/.*)'
   with_items:
     tsadm_slave_siteenvs

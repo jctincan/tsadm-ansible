@@ -2,7 +2,7 @@
 
 from __future__ import print_function
 
-INVLIST_URL = 'http://master.tsadm.local:8000/asb/inv/lst/'
+INVLIST_URL = 'http://dev.tsadm.local:8000/asb/inv/lst/'
 SSL_CERT_FILE = '.asbot.pem'
 
 import sys

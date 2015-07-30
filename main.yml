@@ -10,6 +10,7 @@
         - tsadm-site
         - env-vhost
         - tsadm-codebase
+        - site-envs
 
 
 # master server

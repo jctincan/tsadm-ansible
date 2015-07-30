@@ -33,3 +33,33 @@
     - tsadm-site
     - site-envs
     - site-env-perms
+
+
+# siteenv drupal settings dir
+- name: siteenv drupal settings dir
+  sudo: true
+  file: path={{tsadm_homedir}}/drupal-settings
+    state=directory
+    group={{hostvars[inventory_hostname].tsadm_apache_runcfg.group.name}}
+    mode=0510
+  with_items:
+    tsadm_slave_siteenvs
+  tags:
+    - tsadm-site
+    - site-envs
+
+
+# siteenv drupal db settings
+- name: siteenv drupal db settings
+  sudo: true
+  template: dest={{tsadm_homedir}}/drupal-settings/{{tsadmdb_siteenv[item].site_name}}.{{tsadmdb_siteenv[item].name}}-db.php
+    src=siteenv-drupal-settings-db.php
+    mode=0440
+    owner={{tsadm_user}}
+    group={{hostvars[inventory_hostname].tsadm_apache_runcfg.group.name}}
+    validate='php -l %s'
+  with_items:
+    tsadm_slave_siteenvs
+  tags:
+    - tsadm-site
+    - site-envs

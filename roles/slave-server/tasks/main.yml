@@ -10,3 +10,4 @@
 - include: drush-aliases.yml
 - include: site-env-database.yml
 - include: site-env-vhost.yml
+- include: drupal-setup.yml

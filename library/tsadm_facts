@@ -22,7 +22,13 @@ def apacheRunCfg(asbmod):
     apachectl = asbmod.get_bin_path('apachectl', required=True)
     cmd = apachectl+' -t -D DUMP_RUN_CFG'
     rc, stdout, stderr = asbmod.run_command(cmd, check_rc=True)
-    rtrn = dict()
+    rtrn = dict(
+        root='/etc/apache2',
+        docroot='/var/www',
+        errorlog='/var/log/httpd/error.log',
+        user=dict(id=65534, name='nobody'),
+        group=dict(id=65534, name='nobody'),
+    )
     for line in stdout.splitlines():
         line = line.replace('\"', '')
         if line.startswith('ServerRoot: '):

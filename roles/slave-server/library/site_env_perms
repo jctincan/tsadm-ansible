@@ -127,6 +127,8 @@ def public_dir_perms(dpath):
 def dir_perms(dpath):
     G.fs_attribs['path'] = dpath
     G.fs_attribs['mode'] = G.amod.params['dir_mode']
+    G.fs_attribs['owner'] = G.amod.params['owner']
+    G.fs_attribs['group'] = G.amod.params['group']
     if G.amod.set_fs_attributes_if_different(G.fs_attribs, False):
         if not G.changed:
             G.changed = True
@@ -156,6 +158,8 @@ def public_file_perms(fpath):
 def file_perms(fpath):
     G.fs_attribs['path'] = fpath
     G.fs_attribs['mode'] = G.amod.params['file_mode']
+    G.fs_attribs['owner'] = G.amod.params['owner']
+    G.fs_attribs['group'] = G.amod.params['group']
     if G.amod.set_fs_attributes_if_different(G.fs_attribs, False):
         if not G.changed:
             G.changed = True

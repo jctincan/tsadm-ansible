@@ -7,6 +7,7 @@
       sudo: true
       action: tsadm_facts
       tags:
+        - tsadm-user
         - tsadm-site
         - env-vhost
         - tsadm-codebase

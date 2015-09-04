@@ -2,13 +2,13 @@
 
 from __future__ import print_function
 
-INVLIST_URL = 'http://dev.tsadm.local:8000/asb/inv/lst/'
-SSL_CERT_FILE = '.asbot.pem'
-
 import sys
 import os.path
 
 from urllib2 import urlopen
+
+INVLIST_URL = 'http://dev.tsadm.local:8000/asb/inv/lst/'
+SSL_CERT_FILE = os.path.expanduser('.asbot.pem')
 
 ssl_context = None
 if INVLIST_URL.startswith('https:'):

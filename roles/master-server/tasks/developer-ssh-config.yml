@@ -41,6 +41,8 @@
     backup=yes
   with_items:
     tsadm_developers
+  when:
+    - item in tsadmdb_user_auth_keys
   tags:
     - tsadm-site
     - developer-setup

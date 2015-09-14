@@ -9,6 +9,8 @@
     mode=0750
   with_items:
     tsadm_developers
+  when:
+    - tsadmdb_user[item].setenv_devel == 1
   tags:
     - tsadm-site
     - developer-setup
@@ -25,6 +27,8 @@
     backup=yes
   with_items:
     tsadm_developers
+  when:
+    - tsadmdb_user[item].setenv_devel == 1
   tags:
     - tsadm-site
     - developer-setup
@@ -42,7 +46,7 @@
   with_items:
     tsadm_developers
   when:
-    - item in tsadmdb_user_auth_keys
+    - item in tsadmdb_user_auth_keys and tsadmdb_user[item].setenv_devel == 1
   tags:
     - tsadm-site
     - developer-setup

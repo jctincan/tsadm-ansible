@@ -9,6 +9,8 @@
     state=present
   with_items:
     tsadm_developers
+  when:
+    - tsadmdb_user[item].setenv_devel == 1
   tags:
     - developer-setup
 
@@ -23,5 +25,7 @@
     mode=0750
   with_items:
     tsadm_developers
+  when:
+    - tsadmdb_user[item].setenv_devel == 1
   tags:
     - developer-setup

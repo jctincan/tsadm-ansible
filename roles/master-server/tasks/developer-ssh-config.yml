@@ -2,7 +2,7 @@
 # developer ssh homedir
 - name: developer ssh homedir
   sudo: true
-  file: path=/home/{{tsadmdb_user[item].slug}}/.ssh
+  file: path={{tsadm_homedir}}/developer/{{tsadmdb_user[item].name}}/.ssh
     state=directory
     owner={{tsadmdb_user[item].slug}}
     group={{tsadmdb_user[item].slug}}
@@ -10,7 +10,7 @@
   with_items:
     tsadm_developers
   when:
-    - tsadmdb_user[item].setenv_devel == 1
+    - tsadmdb_user[item].setenv_devel == "1"
   tags:
     - tsadm-site
     - developer-setup
@@ -19,7 +19,7 @@
 # developer ssh config
 - name: developer ssh config
   sudo: true
-  template: dest=/home/{{tsadmdb_user[item].slug}}/.ssh/config
+  template: dest={{tsadm_homedir}}/developer/{{tsadmdb_user[item].name}}/.ssh/config
     src=developer-ssh-config
     owner={{tsadmdb_user[item].slug}}
     group={{tsadmdb_user[item].slug}}
@@ -28,7 +28,7 @@
   with_items:
     tsadm_developers
   when:
-    - tsadmdb_user[item].setenv_devel == 1
+    - tsadmdb_user[item].setenv_devel == "1"
   tags:
     - tsadm-site
     - developer-setup
@@ -37,7 +37,7 @@
 # developer ssh authorized_keys
 - name: developer ssh authorized_keys
   sudo: true
-  template: dest=/home/{{tsadmdb_user[item].slug}}/.ssh/authorized_keys
+  template: dest={{tsadm_homedir}}/developer/{{tsadmdb_user[item].name}}/.ssh/authorized_keys
     src=developer-ssh-authorized_keys
     owner={{tsadmdb_user[item].slug}}
     group={{tsadmdb_user[item].slug}}
@@ -46,7 +46,7 @@
   with_items:
     tsadm_developers
   when:
-    - item in tsadmdb_user_auth_keys and tsadmdb_user[item].setenv_devel == 1
+    - item in tsadmdb_user_auth_keys and tsadmdb_user[item].setenv_devel == "1"
   tags:
     - tsadm-site
     - developer-setup

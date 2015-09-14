@@ -1,5 +1,5 @@
 {% for user_id in tsadm_site_auth[item].auth_users %}
-{% if user_id in tsadmdb_user_auth_keys and tsadmdb_user[user_id].setenv_devel == 1 %}{% for ak in tsadmdb_user_auth_keys[user_id].auth_keys %}
+{% if user_id in tsadmdb_user_auth_keys and tsadmdb_user[user_id].setenv_devel == "1" %}{% for ak in tsadmdb_user_auth_keys[user_id].auth_keys %}
 {{ak}}
 {% endfor %}{% endif %}
 {% endfor %}

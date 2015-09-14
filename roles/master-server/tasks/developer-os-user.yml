@@ -1,16 +1,27 @@
 ---
+# developers homedir
+- name: developers homedir
+  sudo: true
+  file: path={{tsadm_homedir}}/developer
+    state=directory
+    mode=0755
+  tags:
+    - developer-setup
+
+
 # developer user
 - name: developer user
   sudo: true
   user: name={{tsadmdb_user[item].slug}}
     comment='{{tsadm_user}} developer {{tsadmdb_user[item].name}}'
     shell=/bin/bash
-    home=/home/{{tsadmdb_user[item].slug}}
+    home={{tsadm_homedir}}/developer/{{tsadmdb_user[item].name}}
     state=present
+    move_home=yes
   with_items:
     tsadm_developers
   when:
-    - tsadmdb_user[item].setenv_devel == 1
+    - tsadmdb_user[item].setenv_devel == "1"
   tags:
     - developer-setup
 
@@ -18,7 +29,7 @@
 # developer home perms
 - name: developer home perms
   sudo: true
-  file: path=/home/{{tsadmdb_user[item].slug}}
+  file: path={{tsadm_homedir}}/developer/{{tsadmdb_user[item].name}}
     state=directory
     owner={{tsadmdb_user[item].slug}}
     group={{tsadmdb_user[item].slug}}
@@ -26,6 +37,6 @@
   with_items:
     tsadm_developers
   when:
-    - tsadmdb_user[item].setenv_devel == 1
+    - tsadmdb_user[item].setenv_devel == "1"
   tags:
     - developer-setup

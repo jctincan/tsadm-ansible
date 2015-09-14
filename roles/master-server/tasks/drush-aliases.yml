@@ -26,7 +26,7 @@
 - name: site developer drush homedir
   sudo: true
   file:
-    path=/home/{{tsadmdb_user[item].slug}}/.drush
+    path={{tsadm_homedir}}/developer/{{tsadmdb_user[item].name}}/.drush
     state=directory
     owner={{tsadmdb_user[item].slug}}
     group={{tsadmdb_user[item].slug}}
@@ -34,7 +34,7 @@
   with_items:
     tsadm_developers
   when:
-    - tsadmdb_user[item].setenv_devel == 1
+    - tsadmdb_user[item].setenv_devel == "1"
   tags:
     - tsadm-site
     - site-drush
@@ -45,7 +45,7 @@
   sudo: true
   template:
     src=developer-site.aliases.drushrc.php
-    dest=/home/{{tsadmdb_user[item.1].slug}}/.drush/{{tsadmdb_site[item.0.site_id].name}}.aliases.drushrc.php
+    dest={{tsadm_homedir}}/developer/{{tsadmdb_user[item.1].name}}/.drush/{{tsadmdb_site[item.0.site_id].name}}.aliases.drushrc.php
     owner={{tsadmdb_user[item.1].slug}}
     group={{tsadmdb_user[item.1].slug}}
     mode=0640
@@ -54,7 +54,7 @@
     - tsadm_site_auth
     - auth_users
   when:
-    - tsadmdb_user[item.1].setenv_devel == 1
+    - tsadmdb_user[item.1].setenv_devel == "1"
   tags:
     - tsadm-site
     - site-drush

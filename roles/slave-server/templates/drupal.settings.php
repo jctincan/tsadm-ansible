@@ -12,9 +12,15 @@ if (isset($tsadm_referrer))
     if (! empty($tsadm_referrer))
     {
         $matches = array();
-        if (preg_match('#^{{tsadm_homedir}}/sites/(\w+)/(\w+)/docroot/#', $tsadm_referrer, $matches))
+        if (preg_match('#^/home/tsadm/sites/(\w+)/(\w+)/docroot/#', $tsadm_referrer, $matches))
         {
-            $tsadm_site_name = $matches[1];
+            # site name could have been hardcoded from settings.php
+            # as when in multisite mode in example
+            if ($tsadm_site_name == '__NO_SITE_NAME__')
+            {
+                $tsadm_site_name = $matches[1];
+            }
+            # site env should be always dynamic
             $tsadm_site_env = $matches[2];
         }
     }
@@ -25,7 +31,7 @@ if ($tsadm_site_name != '__NO_SITE_NAME__' &&
     $tsadm_site_env != '__NO_SITE_ENV__')
 {
     $databases = array();
-    $tsadm_db_settings = "{{tsadm_homedir}}/drupal-settings/${tsadm_site_name}.${tsadm_site_env}-db.php";
+    $tsadm_db_settings = "/home/tsadm/drupal-settings/${tsadm_site_name}.${tsadm_site_env}-db.php";
 
     if (is_readable($tsadm_db_settings))
     {
@@ -34,7 +40,7 @@ if ($tsadm_site_name != '__NO_SITE_NAME__' &&
     else
     {
         $tsadm_dbname = $tsadm_site_name.$tsadm_site_env.'db';
-        $tsadm_my_cnf = "{{tsadm_homedir}}/sites/${tsadm_site_name}/.my.cnf";
+        $tsadm_my_cnf = "/home/tsadm/sites/${tsadm_site_name}/.my.cnf";
         if (is_readable($tsadm_my_cnf))
         {
             $cnf = @parse_ini_file($tsadm_my_cnf, true);
@@ -71,8 +77,8 @@ if ($tsadm_site_name != '__NO_SITE_NAME__' &&
     }
 
     $drupal_hash_salt = md5('TSADM'.$tsadm_site_name.$tsadm_site_env.'TSADM');
-    $conf['file_private_path'] = "{{tsadm_homedir}}/private/${tsadm_site_name}.${tsadm_site_env}";
-    $conf['file_temporary_path'] = "{{tsadm_homedir}}/private/${tsadm_site_name}.${tsadm_site_env}/tmp";
+    $conf['file_private_path'] = "/home/tsadm/private/${tsadm_site_name}.${tsadm_site_env}";
+    $conf['file_temporary_path'] = "/home/tsadm/private/${tsadm_site_name}.${tsadm_site_env}/tmp";
 
     if (!is_dir($conf['file_private_path'])) {
       @mkdir($conf['file_private_path']);

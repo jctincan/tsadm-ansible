@@ -1,7 +1,10 @@
 <?php
 # {{ansible_managed}}
 
-$tsadm_site_name = '__NO_SITE_NAME__';
+if (! isset($tsadm_site_name))
+{
+    $tsadm_site_name = '__NO_SITE_NAME__';
+}
 $tsadm_site_env = '__NO_SITE_ENV__';
 $tsadm_dbname = '__NO_DBNAME__';
 $tsadm_dbuser = '__NO_DBUSER__';

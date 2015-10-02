@@ -31,6 +31,8 @@
     state=present
   with_items:
     tsadmdb_site.keys()
+  when:
+    tsadmdb_site[item].parent_id == "0"
   tags:
     - tsadm-site
 
@@ -46,6 +48,8 @@
     mode=0751
   with_items:
     tsadmdb_site.keys()
+  when:
+    tsadmdb_site[item].parent_id == "0"
   tags:
     - tsadm-site
     - site-repo
@@ -57,6 +61,8 @@
   script: git-repo-create.sh {{tsadmdb_site[item].slug}} {{site_repo_basedir}}/{{tsadmdb_site[item].name}}/{{tsadmdb_site[item].name}}.git {{hostvars[inventory_hostname].tsadm_apache_runcfg.group.name}} creates={{site_repo_basedir}}/{{tsadmdb_site[item].name}}/{{tsadmdb_site[item].name}}.git/description
   with_items:
     tsadmdb_site.keys()
+  when:
+    tsadmdb_site[item].parent_id == "0"
   tags:
     - tsadm-site
     - site-repo
@@ -72,6 +78,8 @@
     force=yes
   with_items:
     tsadmdb_site.keys()
+  when:
+    tsadmdb_site[item].parent_id == "0"
   tags:
     - tsadm-site
     - site-repo

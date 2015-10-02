@@ -10,6 +10,8 @@
     mode=0750
   with_items:
     tsadmdb_site.keys()
+  when:
+    tsadmdb_site[item].parent_id == "0"
   tags:
     - tsadm-site
     - site-repo
@@ -28,6 +30,8 @@
     backup=yes
   with_items:
     tsadm_site_auth.keys()
+  when:
+    tsadmdb_site[item].parent_id == "0"
   tags:
     - tsadm-site
     - site-repo

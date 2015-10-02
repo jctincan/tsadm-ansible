@@ -10,6 +10,23 @@
     force=no
   with_items:
     tsadm_slave_siteenvs
+  when:
+    tsadmdb_siteenv[item].site_parent_id == "0"
+  tags:
+    - tsadm-site
+    - site-envs
+
+
+# create link to parent site's env
+- name: site env parent symlink
+  sudo: true
+  file: path={{tsadm_homedir}}/sites/{{tsadmdb_siteenv[item].site_name}}/{{tsadmdb_siteenv[item].name}}
+    src={{tsadm_homedir}}/sites/{{tsadmdb_site[tsadmdb_siteenv[item].site_parent_id].name}}/{{tsadmdb_siteenv[item].name}}
+    state=link
+  with_items:
+    tsadm_slave_siteenvs
+  when:
+    tsadmdb_siteenv[item].site_parent_id != "0"
   tags:
     - tsadm-site
     - site-envs
@@ -29,6 +46,8 @@
     public_path_regex=r'.*/sites/.*/files($|/.*)'
   with_items:
     tsadm_slave_siteenvs
+  when:
+    tsadmdb_siteenv[item].site_parent_id == "0"
   tags:
     - tsadm-site
     - site-envs

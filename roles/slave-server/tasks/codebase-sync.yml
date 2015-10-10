@@ -79,3 +79,23 @@
     - service xinetd restart
   tags:
     - tsadm-codebase
+
+
+- name: tsadm webapp config.json
+  template: src=webapp-config.json
+    dest={{tsadm_etcdir}}/config.json
+    owner={{tsadm_user}}
+    group={{tsadm_group}}
+    mode=0440
+  tags:
+    - tsadm-codebase
+
+
+- name: tsadm webapp config.json README
+  template: src=webapp-config.json.README
+    dest={{tsadm_etcdir}}/config.json.README
+    owner={{tsadm_user}}
+    group={{tsadm_group}}
+    mode=0440
+  tags:
+    - tsadm-codebase

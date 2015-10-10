@@ -1,0 +1,4 @@
+{{ansible_managed}}
+
+config.json file (and this one too) are managed via ansible, so any
+local change WILL BE overwritten.

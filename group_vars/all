@@ -19,6 +19,8 @@ repo_user_groups:
 siteenv_domain_suffix: tsadmdev.local
 
 xinetd_jobqd_conf: /etc/xinetd.d/tsadmdev-jobqd
+xinetd_jobqd_port: 6300
+
 cronolog_bin: /usr/bin/cronolog
 
 drupal_server_admin_email: dp_admin@tsadmdev.local

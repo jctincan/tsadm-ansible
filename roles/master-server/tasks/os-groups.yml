@@ -1,0 +1,8 @@
+# tsadm certs group
+- name: tsadm certs group
+  sudo: true
+  group: name={{tsadm_certs_group}}
+    state=present
+  tags:
+    - tsadm-site
+    - tsadm-user

@@ -15,8 +15,12 @@
 - name: site repo user group
   sudo: true
   group:
-    name={{repo_user_groups}}
+    name={{item}}
     state=present
+  with_items:
+    repo_user_groups
+  tags:
+    - tsadm-site
 
 
 # repo user
@@ -24,7 +28,7 @@
   sudo: true
   user:
     name={{tsadmdb_site[item].slug}}
-    groups={{repo_user_groups}}
+    groups={{repo_user_groups|join(',')}}
     comment='{{tsadm_user}} {{tsadmdb_site[item].name}} repo'
     home={{site_repo_basedir}}/{{tsadmdb_site[item].name}}
     shell=/usr/bin/git-shell

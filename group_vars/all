@@ -2,7 +2,7 @@
 tsadm_master_domain: dev.tsadm.local
 tsadm_user: tsadmdev
 tsadm_group: tsadmdev
-repo_user_groups: authcmds
+tsadm_certs_group: tsadmcerts
 
 tsadm_basedir: /opt/tsadmdev
 tsadm_homedir: /home/tsadmdev
@@ -11,6 +11,10 @@ tsadm_webapp_codebase: /opt/tsadmdev/webapp
 
 site_repo_basedir: /srv/git/tsadmdev/sites
 site_repo_post_receive_hook: /opt/tsadmdev/webapp/libexec/git/post-receive
+
+repo_user_groups:
+  - authcmds
+  - tsadmcerts
 
 siteenv_domain_suffix: tsadmdev.local
 

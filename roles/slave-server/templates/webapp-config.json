@@ -1,4 +1,5 @@
 {
    "JOBQ_SERVER_PORT": {{xinetd_jobqd_port}},
-   "MASTER_SERVER_SSL": true
+   "MASTER_SERVER_SSL": true,
+   "MASTER_SERVER_PORT": 443
 }

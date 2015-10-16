@@ -4,6 +4,9 @@ tsadm_user: tsadmdev
 tsadm_group: tsadmdev
 tsadm_certs_group: tsadmcerts
 
+tsadm_user_groups:
+  - authcmds
+
 tsadm_basedir: /opt/tsadmdev
 tsadm_homedir: /home/tsadmdev
 tsadm_etcdir: /etc/opt/tsadmdev

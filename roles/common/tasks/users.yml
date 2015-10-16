@@ -1,20 +1,4 @@
 ---
-# www group
-- name: www group
-  sudo: true
-  group: name={{hostvars[inventory_hostname].tsadm_apache_runcfg.group.name}} state=present
-  tags:
-    - tsadm-user
-
-
-# tsadm user group
-- name: tsadm user group
-  sudo: true
-  group: name={{tsadm_group}} state=present
-  tags:
-    - tsadm-user
-
-
 # tsadm user
 - name: tsadm user
   sudo: true
@@ -22,6 +6,7 @@
     name={{tsadm_user}}
     comment={{tsadm_user}}
     group={{tsadm_group}}
+    groups={{hostvars[inventory_hostname].tsadm_apache_runcfg.group.name}},{{tsadm_user_groups|join(',')}}
     home={{tsadm_homedir}}
     shell=/bin/bash
     state=present

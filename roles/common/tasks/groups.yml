@@ -1,0 +1,28 @@
+---
+# www group
+- name: www group
+  sudo: true
+  group: name={{hostvars[inventory_hostname].tsadm_apache_runcfg.group.name}}
+    state=present
+  tags:
+    - tsadm-user
+
+
+# tsadm user group
+- name: tsadm user group
+  sudo: true
+  group: name={{tsadm_group}}
+    state=present
+  tags:
+    - tsadm-user
+
+
+# tsadm user extra groups
+- name: tsadm user extra groups
+  sudo: true
+  group: name={{item}}
+    state=present
+  with_items:
+    - "{{tsadm_user_groups}}"
+  tags:
+    - tsadm-user

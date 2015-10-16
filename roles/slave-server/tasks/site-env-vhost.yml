@@ -12,7 +12,7 @@
 # apache.d README file
 - name: apache.d README
   sudo: true
-  copy: dest={{tsadm_etcdir}}/apache.d/
+  copy: dest={{tsadm_etcdir}}/apache.d/README.txt
     src=apache.d-README
     mode=0400
   tags:

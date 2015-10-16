@@ -67,3 +67,18 @@
   tags:
     - tsadm-site
     - site-envs
+
+
+# siteenv drupal temp dir
+- name: siteenv drupal temp dir
+  sudo: true
+  file: path={{tsadm_homedir}}/private/{{tsadmdb_siteenv[item].site_name}}.{{tsadmdb_siteenv[item].name}}/tmp
+    state=directory
+    owner={{tsadm_user}}
+    group={{hostvars[inventory_hostname].tsadm_apache_runcfg.group.name}}
+    mode=2770
+  with_items:
+    tsadm_slave_siteenvs
+  tags:
+    - tsadm-site
+    - site-envs

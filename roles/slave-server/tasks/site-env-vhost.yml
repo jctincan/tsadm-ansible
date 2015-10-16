@@ -1,10 +1,21 @@
 ---
+# apache.d auto-config files dir
+- name: apache.d auto-configs dir
+  sudo: true
+  file: dest={{tsadm_etcdir}}/apache.d
+    mode=0751
+    state=directory
+  tags:
+    - env-vhost
+
+
 # robots disallow file
 - name: robots disallow file
   sudo: true
-  copy: dest={{hostvars[inventory_hostname].tsadm_apache_runcfg.docroot}}/
+  copy: dest={{tsadm_etcdir}}/apache.d/
     src=robots-disallow.txt
-    mode=0644
+    mode=0440
+    group={{hostvars[inventory_hostname].tsadm_apache_runcfg.group.name}}
   tags:
     - env-vhost
 
@@ -12,7 +23,7 @@
 # robots disallow readme
 - name: robots disallow readme
   sudo: true
-  copy: dest={{hostvars[inventory_hostname].tsadm_apache_runcfg.docroot}}/
+  copy: dest={{tsadm_etcdir}}/apache.d/
     src=robots-disallow.txt.README
     mode=0400
   tags:
@@ -21,9 +32,10 @@
 
 # drupal common live vhost
 - name: drupal common live vhost
-  template: dest={{tsadm_etcdir}}/apache/drupal-live-vhost.conf
+  sudo: true
+  template: dest={{tsadm_etcdir}}/apache.d/drupal-live-vhost.inc
     src=drupal-live-vhost.conf
-    mode=0640
+    mode=0440
   notify:
     - service apache2 restart
   tags:
@@ -32,9 +44,10 @@
 
 # drupal common non-live vhost
 - name: drupal common non-live vhost
-  template: dest={{tsadm_etcdir}}/apache/drupal-vhost.conf
+  sudo: true
+  template: dest={{tsadm_etcdir}}/apache.d/drupal-vhost.inc
     src=drupal-vhost.conf
-    mode=0640
+    mode=0440
   notify:
     - service apache2 restart
   tags:
@@ -44,9 +57,9 @@
 # env vhost file
 - name: site env vhost file
   sudo: true
-  template: dest=/etc/apache2/sites-enabled/{{tsadmdb_siteenv[item].site_id}}-{{tsadmdb_siteenv[item].site_slug}}{{tsadmdb_siteenv[item].name}}.conf
+  template: dest={{tsadm_etcdir}}/apache.d/{{tsadmdb_siteenv[item].site_id}}-{{tsadmdb_siteenv[item].site_slug}}{{tsadmdb_siteenv[item].name}}.conf
     src=site-env-apache.conf
-    mode=0640
+    mode=0440
   with_items:
     tsadm_slave_siteenvs
   notify:

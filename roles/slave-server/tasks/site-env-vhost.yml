@@ -9,6 +9,16 @@
     - env-vhost
 
 
+# apache.d README file
+- name: apache.d README
+  sudo: true
+  copy: dest={{tsadm_etcdir}}/apache.d/
+    src=apache.d-README
+    mode=0400
+  tags:
+    - env-vhost
+
+
 # robots disallow file
 - name: robots disallow file
   sudo: true
@@ -16,16 +26,6 @@
     src=robots-disallow.txt
     mode=0440
     group={{hostvars[inventory_hostname].tsadm_apache_runcfg.group.name}}
-  tags:
-    - env-vhost
-
-
-# robots disallow readme
-- name: robots disallow readme
-  sudo: true
-  copy: dest={{tsadm_etcdir}}/apache.d/
-    src=robots-disallow.txt.README
-    mode=0400
   tags:
     - env-vhost
 

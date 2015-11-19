@@ -4,5 +4,6 @@
 {% endfor %}{% endif %}
 {% endfor %}
 {% for host_id in tsadm_site_auth[item].auth_hosts %}
-{% if 'tsadm_ssh_pub_key' in hostvars[tsadmdb_host[host_id].fqdn] %}{{hostvars[tsadmdb_host[host_id].fqdn]['tsadm_ssh_pub_key']}}{% endif %}
+{% if 'tsadm_ssh_pub_key' in hostvars[tsadmdb_host[host_id].fqdn] %}{{hostvars[tsadmdb_host[host_id].fqdn]['tsadm_ssh_pub_key']}}
+{% endif %}
 {% endfor %}

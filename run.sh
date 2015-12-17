@@ -1,4 +1,4 @@
 #!/bin/bash
-set -ex
+set -e
 umask 0027
-time ansible -v -T 15 -i inventory.py $@
+time ansible -T 15 -i inventory.py $@

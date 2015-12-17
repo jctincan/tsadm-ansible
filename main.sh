@@ -1,10 +1,10 @@
 #!/bin/bash
-set -ex
+set -e
 umask 0027
 privdir=`realpath ~/ansible.private`
-mkdir -vp ${privdir}
+mkdir -p ${privdir}
 test -d ${privdir} && test -w ${privdir} || {
     echo "${privdir}: dir not found or not writable" >&2
     exit 1
 }
-time ansible-playbook -v -T 15 -i inventory.py -e "privdir=${privdir}" $@ main.yml
+time ansible-playbook -T 15 -i inventory.py -e "privdir=${privdir}" $@ main.yml

@@ -21,6 +21,8 @@ repo_user_groups:
   - authcmds
   - tsadmcerts
 
+site_perms_check: false
+
 siteenv_domain_suffix: tsadmdev.local
 
 xinetd_jobqd_conf: /etc/xinetd.d/tsadmdev-jobqd

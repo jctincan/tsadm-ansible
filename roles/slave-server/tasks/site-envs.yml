@@ -47,7 +47,7 @@
   with_items:
     tsadm_slave_siteenvs
   when:
-    tsadmdb_siteenv[item].site_parent_id == "0"
+    site_perms_check and (tsadmdb_siteenv[item].site_parent_id == "0")
   tags:
     - tsadm-site
     - site-envs

@@ -3,6 +3,7 @@
 - name: site env db
   mysql_db:
     name={{tsadmdb_siteenv[item].site_slug}}{{tsadmdb_siteenv[item].name}}db
+    login_host={{mysql_login_host}}
     state=present
   with_items:
     tsadm_slave_siteenvs
@@ -15,6 +16,7 @@
 - name: site env db user
   mysql_user:
     name={{tsadmdb_siteenv[item].site_slug}}
+    login_host={{mysql_login_host}}
     password="{{ lookup('password', privdir+'/'+inventory_hostname+'.'+tsadmdb_siteenv[item].site_slug+'.my.passwd chars=ascii_letters,digits') }}"
     priv={{tsadmdb_siteenv[item].site_slug}}%db.*:ALL
     state=present

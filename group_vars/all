@@ -6,6 +6,7 @@ tsadm_certs_group: tsadmcerts
 
 tsadm_user_groups:
   - authcmds
+  - tsadmcerts
 
 tsadm_basedir: /opt/tsadmdev
 tsadm_homedir: /home/tsadmdev

@@ -41,6 +41,11 @@ if ($tsadm_site_name != '__NO_SITE_NAME__' &&
     if (is_readable($tsadm_db_settings))
     {
         include($tsadm_db_settings);
+        $override_settings = "${tsadm_homedir}/drupal-settings/${tsadm_site_name}.${tsadm_site_env}-db-override.php";
+        if (is_readable($override_settings))
+        {
+            include($override_settings);
+        }
     }
     else
     {

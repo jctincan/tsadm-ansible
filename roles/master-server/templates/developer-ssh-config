@@ -1,11 +1,11 @@
 # {{ansible_managed}}
 
-{% for envid in tsadmdb_user_siteenv_acl[item].siteenv_ids %}
+{% if item in tsadmdb_user_siteenv_acl %}{% for envid in tsadmdb_user_siteenv_acl[item].siteenv_ids %}
 {% set site_id = tsadmdb_siteenv[envid].site_id %}
 {% set host_id = tsadmdb_siteenv[envid].host_id %}
 Host {{tsadmdb_site[site_id].name}}.{{tsadmdb_siteenv[envid].name}}
     User {{tsadmdb_site[site_id].slug}}
     HostName {{tsadmdb_host[host_id].fqdn}}
 
-{% endfor %}
+{% endfor %}{% endif %}
 # {{ansible_managed}}

@@ -1,7 +1,7 @@
 # certs dir group and permissions
-- name: webapp certs dir
+- name: ssl certs dir
   sudo: true
-  file: path={{tsadm_webapp_codebase}}/etc/certs
+  file: path={{tsadm_etcdir}}/ssl
     group={{tsadm_certs_group}}
     mode=0750
     state=directory
@@ -10,7 +10,7 @@
 # gitbot cert file perms
 - name: webapp gitbot cert
   sudo: true
-  file: path={{tsadm_webapp_codebase}}/etc/certs/gitbot.pem
+  file: path={{tsadm_etcdir}}/ssl/gitbot.pem
     group={{tsadm_certs_group}}
     mode=0640
     state=file

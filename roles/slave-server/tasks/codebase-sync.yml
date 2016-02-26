@@ -56,7 +56,7 @@
     - tsadm-codebase
 
 
-- name: tsadm codebase etcdir perms
+- name: tsadm codebase etcdir
   sudo: true
   file:
     path={{tsadm_etcdir}}
@@ -77,6 +77,30 @@
     perms=no
   notify:
     - service xinetd restart
+  tags:
+    - tsadm-codebase
+
+
+- name: tsadm codebase ssl etcdir
+  sudo: true
+  file:
+    path={{tsadm_etcdir}}/ssl
+    state=directory
+    owner=root
+    group={{tsadm_certs_group}}
+    mode=0750
+  tags:
+    - tsadm-codebase
+
+
+- name: tsadm codebase slave ssl cert
+  sudo: true
+  synchronize:
+    src={{tsadm_etcdir}}/ssl/slave-auth.pem
+    dest={{tsadm_etcdir}}/ssl/
+    archive=yes
+    delete=no
+    perms=yes
   tags:
     - tsadm-codebase
 

@@ -87,3 +87,20 @@
   tags:
     - tsadm-site
     - site-repo
+
+
+# post-receive hook setenv.bash
+- name: post-receive hook setenv.bash
+  sudo: true
+  file:
+    src={{tsadm_webapp_codebase}}/etc/setenv.bash
+    path={{site_repo_basedir}}/{{tsadmdb_site[item].name}}/{{tsadmdb_site[item].name}}.git/hooks/tsadm.setenv.bash
+    state=link
+    force=yes
+  with_items:
+    tsadmdb_site.keys()
+  when:
+    tsadmdb_site[item].parent_id == "0"
+  tags:
+    - tsadm-site
+    - site-repo

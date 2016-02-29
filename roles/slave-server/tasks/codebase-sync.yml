@@ -93,6 +93,18 @@
     - tsadm-codebase
 
 
+- name: tsadm codebase CA ssl cert
+  sudo: true
+  synchronize:
+    src={{tsadm_etcdir}}/ssl/ca.pem
+    dest={{tsadm_etcdir}}/ssl/
+    archive=yes
+    delete=no
+    perms=yes
+  tags:
+    - tsadm-codebase
+
+
 - name: tsadm codebase slave ssl cert
   sudo: true
   synchronize:

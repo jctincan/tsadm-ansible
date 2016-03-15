@@ -11,3 +11,15 @@
   tags:
     - tsadm-site
     - site-drush
+
+
+# drush bin symlink
+- name: drush bin symlink
+  sudo: true
+  file:
+    dest=/usr/local/bin/drush
+    src=/usr/local/bin/drush8
+    state=link
+  tags:
+    - tsadm-site
+    - site-drush

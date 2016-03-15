@@ -7,6 +7,7 @@
 - include: site-user.yml
 - include: site-auth.yml
 - include: site-envs.yml
+- include: drush-setup.yml
 - include: drush-aliases.yml
 - include: site-env-database.yml
 - include: site-env-vhost.yml

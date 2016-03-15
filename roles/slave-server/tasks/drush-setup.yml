@@ -1,0 +1,13 @@
+---
+# drush bin install
+- name: drush bin install
+  sudo: true
+  get_url:
+    dest=/usr/local/bin/drush8
+    force=no
+    mode=0755
+    url=https://github.com/drush-ops/drush/releases/download/8.0.5/drush.phar
+    sha256sum=f6fc333036d8993bd2a834c277e262d200c3075e82c869c213c62ce331f86b77
+  tags:
+    - tsadm-site
+    - site-drush

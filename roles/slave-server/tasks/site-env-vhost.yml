@@ -36,6 +36,7 @@
   template: dest={{tsadm_etcdir}}/apache.d/drupal-live-vhost.inc
     src=drupal-live-vhost.conf
     mode=0440
+    group={{hostvars[inventory_hostname].tsadm_apache_runcfg.group.name}}
   notify:
     - service apache2 restart
   tags:
@@ -48,6 +49,7 @@
   template: dest={{tsadm_etcdir}}/apache.d/drupal-vhost.inc
     src=drupal-vhost.conf
     mode=0440
+    group={{hostvars[inventory_hostname].tsadm_apache_runcfg.group.name}}
   notify:
     - service apache2 restart
   tags:
@@ -60,6 +62,7 @@
   template: dest={{tsadm_etcdir}}/apache.d/{{tsadmdb_siteenv[item].site_id}}-{{tsadmdb_siteenv[item].site_slug}}{{tsadmdb_siteenv[item].name}}.conf
     src=site-env-apache.conf
     mode=0440
+    group={{hostvars[inventory_hostname].tsadm_apache_runcfg.group.name}}
   with_items:
     tsadm_slave_siteenvs
   notify:

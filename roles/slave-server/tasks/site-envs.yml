@@ -23,6 +23,7 @@
   file: path={{tsadm_homedir}}/sites/{{tsadmdb_siteenv[item].site_name}}/{{tsadmdb_siteenv[item].name}}
     src={{tsadm_homedir}}/sites/{{tsadmdb_site[tsadmdb_siteenv[item].site_parent_id].name}}/{{tsadmdb_siteenv[item].name}}
     state=link
+    force=yes
   with_items:
     tsadm_slave_siteenvs
   when:

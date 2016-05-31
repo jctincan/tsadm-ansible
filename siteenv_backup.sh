@@ -10,17 +10,16 @@ source $(dirname ${BASH_SOURCE})/env.bash
 ### tgz /home/tsadm/sites/lonres/test
 
 tstamp=$(date '+%Y%m%d.%H%M%S')
-site_name="${SITE}$(echo ${RUN_MODE} | tr [:lower:] [:upper:])"
-site_dir=${SITES_BASEDIR}/${site_name}
+site_dir=${SITES_BASEDIR}/${SITE}
 siteenv_dir=${site_dir}/${SENV}
-siteenv_file=${site_dir}/${site_name}${SENV}-${tstamp}.tgz
-dbname="${site_name}${SENV}db"
+siteenv_file=${site_dir}/${SITE}${SENV}-${tstamp}.tgz
+dbname="${SITE}$(echo ${RUN_MODE} | tr [:lower:] [:upper:])${SENV}db"
 dbfile=${site_dir}/${dbname}-${tstamp}.sql.gz
 
 ansible ${SERVER} \
-    -i inventory.py \
+    -s -i inventory.py \
     -m mysql_db -a "name=${dbname} state=dump target=${dbfile}"
 
 ansible ${SERVER} \
     -s -i inventory.py \
-    -m shell "ionice -c3 tar -czf ${siteenv_file} ${siteenv_dir}/"
+    -m shell -a "ionice -c3 tar -czf ${siteenv_file} --exclude='.git' ${siteenv_dir}/"

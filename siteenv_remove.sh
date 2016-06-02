@@ -18,6 +18,5 @@ ansible ${SERVER} \
     -m mysql_db -a "name=${dbname} state=absent"
 
 for rmpath in ${dbsettings} ${privdir} ${vhost_f} ${envdir}; do
-    ansible ${SERVER} -s -i inventory.py -m file
-                      -a "path=${rmpath} state=absent"
+   ansible ${SERVER} -s -i inventory.py -m file -a "path=${rmpath} state=absent"
 done

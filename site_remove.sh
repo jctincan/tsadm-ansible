@@ -25,18 +25,18 @@ ansible ${SERVER} \
     -s -i inventory.py -m mysql_user \
     -a "name=${site_slug} state=absent"
 
-ansible tsadm.tincan.co.uk \
+ansible ${MASTER_FQDN} \
     -s -i inventory.py -m user \
     -a "name=${site_slug} state=absent remove=yes"
 
-ansible tsadm.tincan.co.uk \
+ansible ${MASTER_FQDN} \
     -s -i inventory.py -m file \
     -a "path=${repos_basedir}/archive state=directory"
 
-ansible tsadm.tincan.co.uk \
+ansible ${MASTER_FQDN} \
     -s -i inventory.py -m shell \
     -a "ionice -c3 tar -czf ${repo_archive} ${repodir}/"
 
-ansible tsadm.tincan.co.uk \
+ansible ${MASTER_FQDN} \
     -s -i inventory.py -m file \
     -a "path=${repodir} state=absent"

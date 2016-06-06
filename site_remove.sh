@@ -17,6 +17,8 @@ for rmf in ${sitedir} ${drush_f}; do
     ansible ${SERVER} -s -i inventory.py -m file -a "path=${rmf} state=absent"
 done
 
+# -- slave
+
 ansible ${SERVER} \
     -s -i inventory.py -m user \
     -a "name=${site_slug} state=absent remove=yes"
@@ -25,9 +27,7 @@ ansible ${SERVER} \
     -s -i inventory.py -m mysql_user \
     -a "name=${site_slug} state=absent"
 
-ansible ${MASTER_FQDN} \
-    -s -i inventory.py -m user \
-    -a "name=${site_slug} state=absent remove=yes"
+# -- master
 
 ansible ${MASTER_FQDN} \
     -s -i inventory.py -m file \
@@ -40,3 +40,7 @@ ansible ${MASTER_FQDN} \
 ansible ${MASTER_FQDN} \
     -s -i inventory.py -m file \
     -a "path=${repodir} state=absent"
+
+ansible ${MASTER_FQDN} \
+    -s -i inventory.py -m user \
+    -a "name=${site_slug} state=absent remove=yes"

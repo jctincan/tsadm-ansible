@@ -96,6 +96,18 @@ if ($tsadm_site_name != '__NO_SITE_NAME__' &&
     if (!is_dir($conf['file_temporary_path'])) {
       @mkdir($conf['file_temporary_path']);
     }
+
+    // setup memcache if backend was set
+    if (isset($tsadm_memcache_backend))
+    {
+        if (! empty($tsadm_memcache_backend))
+        {
+            $conf['cache_backends'][] = "${tsadm_memcache_backend}";
+            $conf['cache_default_class'] = 'MemCacheDrupal';
+            $conf['cache_class_cache_form'] = 'DrupalDatabaseCache';
+            $conf['memcache_key_prefix'] = "${tsadm_site_name}${tsadm_site_env}";
+        }
+    }
 }
 
 unset($tsadm_site_name);

@@ -35,6 +35,7 @@ if (isset($tsadm_referrer))
 if ($tsadm_site_name != '__NO_SITE_NAME__' &&
     $tsadm_site_env != '__NO_SITE_ENV__')
 {
+    // db settings
     $databases = array();
     $tsadm_db_settings = "${tsadm_homedir}/drupal-settings/${tsadm_site_name}.${tsadm_site_env}-db.php";
 
@@ -86,6 +87,7 @@ if ($tsadm_site_name != '__NO_SITE_NAME__' &&
         );
     }
 
+    // hash salt and tmp and private dirs path
     $drupal_hash_salt = md5('TSADM'.$tsadm_site_name.$tsadm_site_env.'TSADM');
     $conf['file_private_path'] = "${tsadm_homedir}/private/${tsadm_site_name}.${tsadm_site_env}";
     $conf['file_temporary_path'] = "${tsadm_homedir}/private/${tsadm_site_name}.${tsadm_site_env}/tmp";
@@ -108,6 +110,10 @@ if ($tsadm_site_name != '__NO_SITE_NAME__' &&
             $conf['memcache_key_prefix'] = "${tsadm_site_name}${tsadm_site_env}";
         }
     }
+
+    // #38057: reverse_proxy setup
+    $conf['reverse_proxy'] = TRUE;
+    $conf['reverse_proxy_addresses'] = array('127.0.0.1');
 }
 
 unset($tsadm_site_name);
